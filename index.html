@@ -9,12 +9,20 @@
         body {
             font-family: Arial, sans-serif;
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             gap: 10px;
             margin: 20px;
             position: relative;
             min-height: 100vh;
+        }
+        #descobertas {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            margin-top: 20px; /* Distância das descobertas em relação aos elementos */
         }
         .element {
             display: inline-flex;
@@ -79,6 +87,8 @@
         <div class="name">Ar</div>
     </div>
 
+    <div id="descobertas"></div> <!-- Agora as descobertas estão abaixo dos elementos -->
+
     <button id="reset-button" onclick="resetarJogo()">Resetar Jogo</button>
 
     <script>
@@ -111,7 +121,9 @@
                 'FogoAr': { nome: 'Tempestade', emoji: '🌩️' },
                 'ÁguaAr': { nome: 'Nuvem', emoji: '☁️' },
                 'ArÁgua': { nome: 'Nuvem', emoji: '☁️' },
-                'TerraTerra': { nome: 'Montanha', emoji: '⛰️' }
+                'TerraTerra': { nome: 'Montanha', emoji: '⛰️' },
+                'TerraAr': { nome: 'Pó', emoji: '🌫️' },
+                'ÁguaÁgua': { nome: 'Lago', emoji: '🌊' },
             };
 
             const chaveCombinacao = elem1 + elem2;
@@ -134,17 +146,13 @@
             novoElementoDiv.className = 'element';
             novoElementoDiv.innerHTML = `<span class="emoji">${emoji}</span><div class="name">${nome}</div>`;
             novoElementoDiv.onclick = () => selecionarElemento(nome);
-            document.body.appendChild(novoElementoDiv);
+            document.getElementById('descobertas').appendChild(novoElementoDiv);
         }
 
         function resetarJogo() {
             localStorage.removeItem('elementosCriados');
             elementosCriados = [];
-            document.querySelectorAll('.element').forEach(el => {
-                if (!['Fogo', 'Água', 'Terra', 'Ar'].includes(el.querySelector('.name').textContent.trim())) {
-                    el.remove();
-                }
-            });
+            document.getElementById('descobertas').innerHTML = '';
         }
 
         inicializarElementosSalvos();
