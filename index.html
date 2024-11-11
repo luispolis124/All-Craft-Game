@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Craft</title>
+    <title>All Craft Game</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -70,6 +70,7 @@
     </style>
 </head>
 <body>
+    <div id="elementos-iniciais">
     <div class="element" onclick="selecionarElemento('Fogo')">
         <span class="emoji">🔥</span>
         <div class="name">Fogo</div>
@@ -86,7 +87,7 @@
         <span class="emoji">💨</span>
         <div class="name">Ar</div>
     </div>
-
+</div>
     <div id="descobertas"></div> <!-- Agora as descobertas estão abaixo dos elementos -->
 
     <button id="reset-button" onclick="resetarJogo()">Resetar Jogo</button>
