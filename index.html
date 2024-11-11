@@ -13,35 +13,83 @@
             justify-content: center;
             gap: 10px;
             margin: 20px;
+            position: relative;
+            min-height: 100vh;
         }
         .element {
-            display: inline-block;
-            padding: 15px 25px;
-            background-color: #f3f3f3;
-            border: 1px solid #ccc;
-            border-radius: 10px;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            background-color: #e0e0e0;
+            border: 2px solid #b0b0b0;
+            border-radius: 5px;
+            width: 80px;
+            height: 100px;
             text-align: center;
             cursor: pointer;
-            transition: transform 0.1s;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.2s;
         }
         .element:hover {
-            transform: scale(1.05);
+            background-color: #d0d0d0;
         }
         .emoji {
-            font-size: 24px;
-            margin-right: 8px;
+            font-size: 28px;
+        }
+        .name {
+            margin-top: 5px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        #reset-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            font-size: 14px;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        #reset-button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <div class="element" onclick="selecionarElemento('Fogo')"><span class="emoji">🔥</span>Fogo</div>
-    <div class="element" onclick="selecionarElemento('Água')"><span class="emoji">💧</span>Água</div>
-    <div class="element" onclick="selecionarElemento('Terra')"><span class="emoji">🌍</span>Terra</div>
-    <div class="element" onclick="selecionarElemento('Ar')"><span class="emoji">💨</span>Ar</div>
+    <div class="element" onclick="selecionarElemento('Fogo')">
+        <span class="emoji">🔥</span>
+        <div class="name">Fogo</div>
+    </div>
+    <div class="element" onclick="selecionarElemento('Água')">
+        <span class="emoji">💧</span>
+        <div class="name">Água</div>
+    </div>
+    <div class="element" onclick="selecionarElemento('Terra')">
+        <span class="emoji">🌍</span>
+        <div class="name">Terra</div>
+    </div>
+    <div class="element" onclick="selecionarElemento('Ar')">
+        <span class="emoji">💨</span>
+        <div class="name">Ar</div>
+    </div>
+
+    <button id="reset-button" onclick="resetarJogo()">Resetar Jogo</button>
 
     <script>
         let elementosSelecionados = [];
-        let elementosCriados = [];
+        let elementosCriados = JSON.parse(localStorage.getItem('elementosCriados')) || [];
+
+        function inicializarElementosSalvos() {
+            elementosCriados.forEach(elemento => {
+                criarElementoNaPagina(elemento.nome, elemento.emoji);
+            });
+        }
 
         function selecionarElemento(elemento) {
             elementosSelecionados.push(elemento);
@@ -71,23 +119,35 @@
             if (combinacoesValidas[chaveCombinacao]) {
                 const novoElemento = combinacoesValidas[chaveCombinacao];
 
-                // Verifica se o elemento já foi criado
-                if (!elementosCriados.includes(novoElemento.nome)) {
-                    elementosCriados.push(novoElemento.nome);
-
-                    // Cria o botão do novo elemento
-                    const novoElementoDiv = document.createElement('div');
-                    novoElementoDiv.className = 'element';
-                    novoElementoDiv.innerHTML = `<span class="emoji">${novoElemento.emoji}</span>${novoElemento.nome}`;
-                    novoElementoDiv.onclick = () => selecionarElemento(novoElemento.nome);
-
-                    // Adiciona o elemento à página
-                    document.body.appendChild(novoElementoDiv);
+                if (!elementosCriados.some(el => el.nome === novoElemento.nome)) {
+                    elementosCriados.push(novoElemento);
+                    localStorage.setItem('elementosCriados', JSON.stringify(elementosCriados));
+                    criarElementoNaPagina(novoElemento.nome, novoElemento.emoji);
                 }
             }
 
             elementosSelecionados = [];
         }
+
+        function criarElementoNaPagina(nome, emoji) {
+            const novoElementoDiv = document.createElement('div');
+            novoElementoDiv.className = 'element';
+            novoElementoDiv.innerHTML = `<span class="emoji">${emoji}</span><div class="name">${nome}</div>`;
+            novoElementoDiv.onclick = () => selecionarElemento(nome);
+            document.body.appendChild(novoElementoDiv);
+        }
+
+        function resetarJogo() {
+            localStorage.removeItem('elementosCriados');
+            elementosCriados = [];
+            document.querySelectorAll('.element').forEach(el => {
+                if (!['Fogo', 'Água', 'Terra', 'Ar'].includes(el.querySelector('.name').textContent.trim())) {
+                    el.remove();
+                }
+            });
+        }
+
+        inicializarElementosSalvos();
     </script>
 </body>
 </html>
