@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogo de Criação de Elementos</title>
+    <title>All Craft</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -41,6 +41,7 @@
 
     <script>
         let elementosSelecionados = [];
+        let elementosCriados = [];
 
         function selecionarElemento(elemento) {
             elementosSelecionados.push(elemento);
@@ -52,18 +53,36 @@
         function combinarElementos() {
             const [elem1, elem2] = elementosSelecionados;
             const combinacoesValidas = {
-                'FogoÁgua': 'Vapor',
-                'ÁguaFogo': 'Vapor',
-                'FogoTerra': 'Lava',
-                'TerraFogo': 'Lava'
+                'FogoÁgua': { nome: 'Vapor', emoji: '💨' },
+                'ÁguaFogo': { nome: 'Vapor', emoji: '💨' },
+                'FogoTerra': { nome: 'Lava', emoji: '🌋' },
+                'TerraFogo': { nome: 'Lava', emoji: '🌋' },
+                'ÁguaTerra': { nome: 'Lodo', emoji: '🪵' },
+                'TerraÁgua': { nome: 'Lodo', emoji: '🪵' },
+                'ArFogo': { nome: 'Tempestade', emoji: '🌩️' },
+                'FogoAr': { nome: 'Tempestade', emoji: '🌩️' }
             };
 
             const chaveCombinacao = elem1 + elem2;
+
             if (combinacoesValidas[chaveCombinacao]) {
-                alert('Você criou ' + combinacoesValidas[chaveCombinacao] + '!');
-            } else {
-                alert('Combinação não válida');
+                const novoElemento = combinacoesValidas[chaveCombinacao];
+
+                // Verifica se o elemento já foi criado
+                if (!elementosCriados.includes(novoElemento.nome)) {
+                    elementosCriados.push(novoElemento.nome);
+
+                    // Cria o botão do novo elemento
+                    const novoElementoDiv = document.createElement('div');
+                    novoElementoDiv.className = 'element';
+                    novoElementoDiv.innerHTML = `<span class="emoji">${novoElemento.emoji}</span>${novoElemento.nome}`;
+                    novoElementoDiv.onclick = () => selecionarElemento(novoElemento.nome);
+
+                    // Adiciona o elemento à página
+                    document.body.appendChild(novoElementoDiv);
+                }
             }
+
             elementosSelecionados = [];
         }
     </script>
