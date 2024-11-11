@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Criação de Elementos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px;
+        }
+        .element {
+            display: inline-block;
+            padding: 15px 25px;
+            background-color: #f3f3f3;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        .element:hover {
+            transform: scale(1.05);
+        }
+        .emoji {
+            font-size: 24px;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="element" onclick="selecionarElemento('Fogo')"><span class="emoji">🔥</span>Fogo</div>
+    <div class="element" onclick="selecionarElemento('Água')"><span class="emoji">💧</span>Água</div>
+    <div class="element" onclick="selecionarElemento('Terra')"><span class="emoji">🌍</span>Terra</div>
+    <div class="element" onclick="selecionarElemento('Ar')"><span class="emoji">💨</span>Ar</div>
+
+    <script>
+        let elementosSelecionados = [];
+
+        function selecionarElemento(elemento) {
+            elementosSelecionados.push(elemento);
+            if (elementosSelecionados.length === 2) {
+                combinarElementos();
+            }
+        }
+
+        function combinarElementos() {
+            const [elem1, elem2] = elementosSelecionados;
+            const combinacoesValidas = {
+                'FogoÁgua': 'Vapor',
+                'ÁguaFogo': 'Vapor',
+                'FogoTerra': 'Lava',
+                'TerraFogo': 'Lava'
+            };
+
+            const chaveCombinacao = elem1 + elem2;
+            if (combinacoesValidas[chaveCombinacao]) {
+                alert('Você criou ' + combinacoesValidas[chaveCombinacao] + '!');
+            } else {
+                alert('Combinação não válida');
+            }
+            elementosSelecionados = [];
+        }
+    </script>
+</body>
+</html>
