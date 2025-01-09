@@ -1,228 +1,232 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Craft Game</title>
+    <title>Luis Felipe Produções</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #ffcc00;
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
-            margin: 20px;
-            position: relative;
-            min-height: 100vh;
-        }
-        #language-buttons {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        #language-buttons button {
-            padding: 10px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            background-color: #007BFF;
-            color: white;
-            font-size: 14px;
-            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        #language-buttons button:hover {
-            background-color: #0056b3;
-        }
-        #descobertas {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            margin-top: 20px;
-        }
-        .element {
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-            background-color: #e0e0e0;
-            border: 2px solid #b0b0b0;
-            border-radius: 5px;
-            width: 80px;
-            height: 100px;
-            text-align: center;
-            cursor: pointer;
-            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.2s;
-        }
-        .element:hover {
-            background-color: #d0d0d0;
-        }
-        .emoji {
-            font-size: 28px;
-        }
-        .name {
-            margin-top: 5px;
-            font-size: 14px;
-            font-weight: bold;
-        }
-        #reset-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
             padding: 10px 20px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            background-color: #007BFF;
-            color: white;
-            font-size: 14px;
-            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        #reset-button:hover {
-            background-color: #0056b3;
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .menu {
+            display: none;
+            flex-direction: column;
+            background-color: #ffcc00;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #333;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .menu a:last-child {
+            border-bottom: none;
+        }
+
+        .menu a:hover {
+            background-color: #ffe680;
+        }
+
+        .menu-toggle {
+            cursor: pointer;
+            font-size: 24px;
+            background: none;
+            border: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-toggle:focus {
+            outline: none;
+        }
+
+        .slider {
+            position: relative;
+            max-width: 100%;
+            margin: 80px auto 20px; /* Ajuste para header fixo */
+            overflow: hidden;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slides img {
+            width: 100%;
+            flex-shrink: 0;
+        }
+
+        .navigation {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .navigation button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px 15px;
+            font-size: 18px;
+        }
+
+        .navigation button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .content {
+            text-align: center;
+            padding: 20px 20px;
+        }
+
+        .content h1 {
+            font-size: 36px;
+            color: #333;
+        }
+
+        .content p {
+            font-size: 18px;
+            color: #666;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .menu {
+                display: flex;
+                flex-direction: row;
+                position: static;
+                background-color: transparent;
+                box-shadow: none;
+                border: none;
+                margin-left: auto;
+            }
+            .menu a {
+                padding: 0 15px;
+                border: none;
+                color: #333;
+            }
+            .menu a:hover {
+                background-color: transparent;
+                color: #555;
+            }
+            .menu-toggle {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-    <div id="elementos-iniciais">
-        <div class="element" data-key="Fogo" onclick="selecionarElemento('Fogo')">
-            <span class="emoji">🔥</span>
-            <div class="name">Fogo</div>
+    <header>
+        <div class="logo">Luis Felipe Produções</div>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <div class="menu" id="menu">
+            <a href="#sobre">Sobre Nós</a>
+            <a href="#projetos">Nossos Projetos</a>
+            <a href="#contato">Contato</a>
+            <!-- Botão de política de cookies -->
+            <a href="cookie_policies.html">Política de Cookies</a>
         </div>
-        <div class="element" data-key="Água" onclick="selecionarElemento('Água')">
-            <span class="emoji">💧</span>
-            <div class="name">Água</div>
+    </header>
+
+    <!-- Slider de imagens -->
+    <div class="slider">
+        <div class="slides" id="slides">
+            <img src="imagem1.jpg" alt="Imagem 1">
+            <img src="imagem2.jpg" alt="Imagem 2">
+            <img src="imagem3.jpg" alt="Imagem 3">
         </div>
-        <div class="element" data-key="Terra" onclick="selecionarElemento('Terra')">
-            <span class="emoji">🌍</span>
-            <div class="name">Terra</div>
-        </div>
-        <div class="element" data-key="Ar" onclick="selecionarElemento('Ar')">
-            <span class="emoji">💨</span>
-            <div class="name">Ar</div>
+        <div class="navigation">
+            <button onclick="prevSlide()">&#10094;</button>
+            <button onclick="nextSlide()">&#10095;</button>
         </div>
     </div>
-    <div id="descobertas"></div>
 
-    <button id="reset-button" onclick="resetarJogo()">Resetar Jogo</button>
-
-    <div id="language-buttons">
-        <button onclick="changeLanguage('pt')">Português</button>
-        <button onclick="changeLanguage('en')">English</button>
-        <button onclick="changeLanguage('es')">Español</button>
+    <div class="content">
+        <h1>Bem-vindo à Luis Felipe Produções!</h1>
+        <p>Criando animações incríveis e histórias emocionantes para todas as idades.</p>
     </div>
+
+    <footer>
+        <p>&copy; 2025 Luis Felipe Produções. Todos os direitos reservados.</p>
+    </footer>
 
     <script>
-    let elementosSelecionados = [];
-    let elementosCriados = JSON.parse(localStorage.getItem('elementosCriados')) || [];
-    let language = 'pt';
+        let currentSlide = 0;
 
-    const translations = {
-        pt: {
-            Fogo: 'Fogo',
-            Água: 'Água',
-            Terra: 'Terra',
-            Ar: 'Ar',
-            Vapor: 'Vapor'
-        },
-        en: {
-            Fogo: 'Fire',
-            Água: 'Water',
-            Terra: 'Earth',
-            Ar: 'Air',
-            Vapor: 'Steam'
-        },
-        es: {
-            Fogo: 'Fuego',
-            Água: 'Agua',
-            Terra: 'Tierra',
-            Ar: 'Aire',
-            Vapor: 'Vapor'
+        function showSlide(index) {
+            const slides = document.getElementById('slides');
+            const totalSlides = slides.children.length;
+
+            // Garantir que o índice esteja no intervalo
+            currentSlide = (index + totalSlides) % totalSlides;
+
+            // Mover para o slide correspondente
+            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
         }
-    };
 
-    const combinacoesValidas = {
-        FogoÁgua: { key: 'Vapor', emoji: '💨' },
-        ÁguaFogo: { key: 'Vapor', emoji: '💨' }
-        // Adicione mais combinações aqui
-    };
-
-    function changeLanguage(newLang) {
-        language = newLang;
-        atualizarElementos();
-        atualizarDescobertas();
-    }
-
-    function atualizarElementos() {
-        document.querySelectorAll('.element').forEach(element => {
-            const key = element.getAttribute('data-key');
-            element.querySelector('.name').textContent = translations[language][key];
-        });
-    }
-
-    function atualizarDescobertas() {
-        document.querySelectorAll('#descobertas .element').forEach(element => {
-            const key = element.getAttribute('data-key');
-            element.querySelector('.name').textContent = translations[language][key];
-        });
-    }
-
-    function inicializarElementosSalvos() {
-        elementosCriados.forEach(elemento => {
-            criarElementoNaPagina(elemento.key, elemento.emoji);
-        });
-    }
-
-    function selecionarElemento(elemento) {
-        elementosSelecionados.push(elemento);
-        if (elementosSelecionados.length === 2) {
-            combinarElementos();
+        function prevSlide() {
+            showSlide(currentSlide - 1);
         }
-    }
 
-    function combinarElementos() {
-        const [elem1, elem2] = elementosSelecionados;
-        const chaveCombinacao = elem1 + elem2;
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
 
-        if (combinacoesValidas[chaveCombinacao]) {
-            const novoElemento = combinacoesValidas[chaveCombinacao];
-
-            if (!elementosCriados.some(el => el.key === novoElemento.key)) {
-                elementosCriados.push(novoElemento);
-                localStorage.setItem('elementosCriados', JSON.stringify(elementosCriados));
-                criarElementoNaPagina(novoElemento.key, novoElemento.emoji);
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            if (menu.style.display === 'flex') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'flex';
             }
         }
-
-        elementosSelecionados = [];
-    }
-
-    function criarElementoNaPagina(key, emoji) {
-        const novoElementoDiv = document.createElement('div');
-        novoElementoDiv.className = 'element';
-        novoElementoDiv.setAttribute('data-key', key);
-        novoElementoDiv.innerHTML = `
-            <span class="emoji">${emoji}</span>
-            <div class="name">${translations[language][key]}</div>
-        `;
-        novoElementoDiv.onclick = () => selecionarElemento(key);
-        document.getElementById('descobertas').appendChild(novoElementoDiv);
-    }
-
-    function resetarJogo() {
-        localStorage.removeItem('elementosCriados');
-        elementosCriados = [];
-        document.getElementById('descobertas').innerHTML = '';
-    }
-
-    inicializarElementosSalvos();
-</script>
+    </script>
 </body>
 </html>
