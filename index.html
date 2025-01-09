@@ -16,13 +16,34 @@
             position: relative;
             min-height: 100vh;
         }
+        #language-buttons {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        #language-buttons button {
+            padding: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            font-size: 14px;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        #language-buttons button:hover {
+            background-color: #0056b3;
+        }
         #descobertas {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 10px;
             width: 100%;
-            margin-top: 20px; /* Distância das descobertas em relação aos elementos */
+            margin-top: 20px;
         }
         .element {
             display: inline-flex;
@@ -71,144 +92,137 @@
 </head>
 <body>
     <div id="elementos-iniciais">
-    <div class="element" onclick="selecionarElemento('Fogo')">
-        <span class="emoji">🔥</span>
-        <div class="name">Fogo</div>
+        <div class="element" data-key="Fogo" onclick="selecionarElemento('Fogo')">
+            <span class="emoji">🔥</span>
+            <div class="name">Fogo</div>
+        </div>
+        <div class="element" data-key="Água" onclick="selecionarElemento('Água')">
+            <span class="emoji">💧</span>
+            <div class="name">Água</div>
+        </div>
+        <div class="element" data-key="Terra" onclick="selecionarElemento('Terra')">
+            <span class="emoji">🌍</span>
+            <div class="name">Terra</div>
+        </div>
+        <div class="element" data-key="Ar" onclick="selecionarElemento('Ar')">
+            <span class="emoji">💨</span>
+            <div class="name">Ar</div>
+        </div>
     </div>
-    <div class="element" onclick="selecionarElemento('Água')">
-        <span class="emoji">💧</span>
-        <div class="name">Água</div>
-    </div>
-    <div class="element" onclick="selecionarElemento('Terra')">
-        <span class="emoji">🌍</span>
-        <div class="name">Terra</div>
-    </div>
-    <div class="element" onclick="selecionarElemento('Ar')">
-        <span class="emoji">💨</span>
-        <div class="name">Ar</div>
-    </div>
-</div>
-    <div id="descobertas"></div> <!-- Agora as descobertas estão abaixo dos elementos -->
+    <div id="descobertas"></div>
 
     <button id="reset-button" onclick="resetarJogo()">Resetar Jogo</button>
 
+    <div id="language-buttons">
+        <button onclick="changeLanguage('pt')">Português</button>
+        <button onclick="changeLanguage('en')">English</button>
+        <button onclick="changeLanguage('es')">Español</button>
+    </div>
+
     <script>
-        let elementosSelecionados = [];
-        let elementosCriados = JSON.parse(localStorage.getItem('elementosCriados')) || [];
+    let elementosSelecionados = [];
+    let elementosCriados = JSON.parse(localStorage.getItem('elementosCriados')) || [];
+    let language = 'pt';
 
-        function inicializarElementosSalvos() {
-            elementosCriados.forEach(elemento => {
-                criarElementoNaPagina(elemento.nome, elemento.emoji);
-            });
+    const translations = {
+        pt: {
+            Fogo: 'Fogo',
+            Água: 'Água',
+            Terra: 'Terra',
+            Ar: 'Ar',
+            Vapor: 'Vapor'
+        },
+        en: {
+            Fogo: 'Fire',
+            Água: 'Water',
+            Terra: 'Earth',
+            Ar: 'Air',
+            Vapor: 'Steam'
+        },
+        es: {
+            Fogo: 'Fuego',
+            Água: 'Agua',
+            Terra: 'Tierra',
+            Ar: 'Aire',
+            Vapor: 'Vapor'
         }
+    };
 
-        function selecionarElemento(elemento) {
-            elementosSelecionados.push(elemento);
-            if (elementosSelecionados.length === 2) {
-                combinarElementos();
+    const combinacoesValidas = {
+        FogoÁgua: { key: 'Vapor', emoji: '💨' },
+        ÁguaFogo: { key: 'Vapor', emoji: '💨' }
+        // Adicione mais combinações aqui
+    };
+
+    function changeLanguage(newLang) {
+        language = newLang;
+        atualizarElementos();
+        atualizarDescobertas();
+    }
+
+    function atualizarElementos() {
+        document.querySelectorAll('.element').forEach(element => {
+            const key = element.getAttribute('data-key');
+            element.querySelector('.name').textContent = translations[language][key];
+        });
+    }
+
+    function atualizarDescobertas() {
+        document.querySelectorAll('#descobertas .element').forEach(element => {
+            const key = element.getAttribute('data-key');
+            element.querySelector('.name').textContent = translations[language][key];
+        });
+    }
+
+    function inicializarElementosSalvos() {
+        elementosCriados.forEach(elemento => {
+            criarElementoNaPagina(elemento.key, elemento.emoji);
+        });
+    }
+
+    function selecionarElemento(elemento) {
+        elementosSelecionados.push(elemento);
+        if (elementosSelecionados.length === 2) {
+            combinarElementos();
+        }
+    }
+
+    function combinarElementos() {
+        const [elem1, elem2] = elementosSelecionados;
+        const chaveCombinacao = elem1 + elem2;
+
+        if (combinacoesValidas[chaveCombinacao]) {
+            const novoElemento = combinacoesValidas[chaveCombinacao];
+
+            if (!elementosCriados.some(el => el.key === novoElemento.key)) {
+                elementosCriados.push(novoElemento);
+                localStorage.setItem('elementosCriados', JSON.stringify(elementosCriados));
+                criarElementoNaPagina(novoElemento.key, novoElemento.emoji);
             }
         }
 
-        function combinarElementos() {
-            const [elem1, elem2] = elementosSelecionados;
-            const combinacoesValidas = {
-                'FogoÁgua': { nome: 'Vapor', emoji: '💨' },
-                'ÁguaFogo': { nome: 'Vapor', emoji: '💨' },
-                'FogoTerra': { nome: 'Lava', emoji: '🌋' },
-                'TerraFogo': { nome: 'Lava', emoji: '🌋' },
-                'ÁguaTerra': { nome: 'Lodo', emoji: '🪵' },
-                'TerraÁgua': { nome: 'Planta', emoji: '🌱' },
-                'ArFogo': { nome: 'Tempestade', emoji: '🌩️' },
-                'FogoAr': { nome: 'Tempestade', emoji: '🌩️' },
-                'ÁguaAr': { nome: 'Nuvem', emoji: '☁️' },
-                'ArÁgua': { nome: 'Nuvem', emoji: '☁️' },
-                'TerraTerra': { nome: 'Montanha', emoji: '⛰️' },
-                'TerraAr': { nome: 'Poeira', emoji: '🌫️' },
-                'ÁguaÁgua': { nome: 'Lago', emoji: '🌊' },
-                'FogoAr': { nome: 'Fumaça', emoji: '💨'},
-                'ArAr': { nome: 'Tornado', emoji: '🌪️'},
-                'FogoFogo': { nome: 'Vulcão', emoji: '🌋'},
-                'ÁguaAr': { nome: 'Onda', emoji: '🌊'},
-                'VulcãoAr': { nome: 'Erupção', emoji: '🌋'},
-                'LavaÁgua': { nome: 'Pedra', emoji: '🪨'},
-                'PoeiraTerra': { nome: 'Planeta', emoji: '🪐'},
-                'TerraOnda': { nome: 'Areia', emoji: '🏖️'},
-                'TerraPlanta': { nome: 'Árvore', emoji: '🌳'},
-                'LagoÁgua': { nome: 'Oceano', emoji: '🌊'},
-                'FogoFumaça': { nome: 'Motor', emoji: '🚗'},
-                'MontanhaAr': { nome: 'Avalanche', emoji: '🌨️'},
-                'PoeiraFogo': { nome: 'Cinzas', emoji: '🌋'},
-                'PlantaÁgua': { nome: 'Pântano', emoji: '🐊'},
-                'PoeiraPoeira': { nome: 'Areia', emoji: '🏖️'},
-                'PlantaAr': { nome: 'Dente de leão', emoji: '🌼'},
-                'TerraVapor': { nome: 'Lama', emoji: '💩'},
-                'PoeiraAr': { nome: 'Tempestade de areia', emoji: '🌪️'},
-                'FumaçaÁgua': { nome: 'Neblina', emoji: '🌫️'},
-                'ÁrvoreÁgua': { nome: 'Rio', emoji: '🌊'},
-                'TerraÁrvore': { nome: 'Floresta', emoji: '🌲'},
-                'TerraAreia': { nome: 'Deserto', emoji: '🏜️'},
-                'AvalancheAr': { nome: 'Neve', emoji: '❄️'},
-                'ArAvalanche': { nome: 'Neve', emoji: '❄️'},
-                'FogoPlaneta': { nome: 'Sol', emoji: '☀️'},
-                'PlanetaFogo': { nome: 'Sol', emoji: '☀️'},
-                'TerraPlaneta': { nome: 'Lua', emoji: '🌙'},
-                'PlanetaTerra': { nome: 'Lua', emoji: '🌙'},
-                'LamaTerra': { nome: 'Argila', emoji: '🏺'}, 
-                'AreiaArgila': { nome: 'Golem', emoji: '🏛️'},
-                'MotorAreia': { nome: 'Caixa de areia', emoji: '🏖️'},
-                'PlanetaCaixadeareia': { nome: 'Minecraft', emoji: '🏰' },
-                'AreiaFogo': { nome: 'Vidro', emoji: '🥃'},
-                'FumaçaVidro': { nome: 'Espelho', emoji: '🪞'},
-                'Dente de leãoAr': { nome: 'Semente', emoji: '🌱'},
-                'ArDente de leão': { nome: 'Semente', emoji: '🌱'},
-                'TornadoÁgua': { nome: 'Tsunami', emoji: '🌊'},
-                'MotorAr': { nome: 'Moinho de vento', emoji: '🌬️'},
-                'TerraMotor': { nome: 'Trator', emoji: '🚜'},
-                'CinzasÁgua': { nome: 'Poça', emoji: '💦'},
-                'TsunamiAr': { nome: 'Furacão', emoji: '🌀'},
-                'ÁrvoreAr': { nome: 'Folha', emoji: '🍃'},
-                'PlantaOnda': { nome: 'Alga', emoji: '🌊'},
-                'NuvemAgua': { nome: 'Chuva', emoji: '🌧️'},
-                'OceanoÁgua': { nome: 'Peixe', emoji: '🐟'},
-                'TerraTsunami': { nome: 'Ilha', emoji: '🏝️'},
-                'FumaçaOnda': { nome: 'Surfar', emoji: '🏄'},
-                'PlantaVapor': { nome: 'Chá', emoji: '🍵'},
-                'PoeiraPlanta': { nome: 'Pólen', emoji: '🌱'},
-                'PlantaFumaça': { nome: 'Incenso', emoji: '🕯️'},
-                'NuvemFogo': { nome: 'Raio', emoji: '⚡️'},
-                
-            };
+        elementosSelecionados = [];
+    }
 
-            const chaveCombinacao = elem1 + elem2;
+    function criarElementoNaPagina(key, emoji) {
+        const novoElementoDiv = document.createElement('div');
+        novoElementoDiv.className = 'element';
+        novoElementoDiv.setAttribute('data-key', key);
+        novoElementoDiv.innerHTML = `
+            <span class="emoji">${emoji}</span>
+            <div class="name">${translations[language][key]}</div>
+        `;
+        novoElementoDiv.onclick = () => selecionarElemento(key);
+        document.getElementById('descobertas').appendChild(novoElementoDiv);
+    }
 
-            if (combinacoesValidas[chaveCombinacao]) {
-                const novoElemento = combinacoesValidas[chaveCombinacao];
+    function resetarJogo() {
+        localStorage.removeItem('elementosCriados');
+        elementosCriados = [];
+        document.getElementById('descobertas').innerHTML = '';
+    }
 
-                if (!elementosCriados.some(el => el.nome === novoElemento.nome)) {
-                    elementosCriados.push(novoElemento);
-                    localStorage.setItem('elementosCriados', JSON.stringify(elementosCriados));
-                    criarElementoNaPagina(novoElemento.nome, novoElemento.emoji);
-                }
-            }
-
-            elementosSelecionados = [];
-        }
-
-        function criarElementoNaPagina(nome, emoji) {
-            const novoElementoDiv = document.createElement('div');
-            novoElementoDiv.className = 'element';
-            novoElementoDiv.innerHTML = `<span class="emoji">${emoji}</span><div class="name">${nome}</div>`;
-            novoElementoDiv.onclick = () => selecionarElemento(nome);
-            document.getElementById('descobertas').appendChild(novoElementoDiv);
-        }
-
-        function resetarJogo() {
-            localStorage.removeItem('elementosCriados');
-            elementosCriados = [];
-            document.getElementById('descobertas').innerHTML = '';
-        }
-
-        inicializarElementosSalvos();
-    </script>
+    inicializarElementosSalvos();
+</script>
 </body>
 </html>
