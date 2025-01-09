@@ -125,34 +125,41 @@
     let language = 'pt';
 
     const translations = {
-        pt: {
-            Fogo: 'Fogo',
-            Água: 'Água',
-            Terra: 'Terra',
-            Ar: 'Ar',
-            Vapor: 'Vapor'
-        },
-        en: {
-            Fogo: 'Fire',
-            Água: 'Water',
-            Terra: 'Earth',
-            Ar: 'Air',
-            Vapor: 'Steam'
-        },
-        es: {
-            Fogo: 'Fuego',
-            Água: 'Agua',
-            Terra: 'Tierra',
-            Ar: 'Aire',
-            Vapor: 'Vapor'
-        }
-    };
+    pt: { 
+        Fogo: 'Fogo', 
+        Água: 'Água', 
+        Terra: 'Terra', 
+        Ar: 'Ar', 
+        Vapor: 'Vapor', 
+        Lama: 'Lama', 
+        Tempestade: 'Tempestade'
+    },
+    en: { 
+        Fogo: 'Fire', 
+        Água: 'Water', 
+        Terra: 'Earth', 
+        Ar: 'Air', 
+        Vapor: 'Steam', 
+        Lama: 'Mud', 
+        Tempestade: 'Storm'
+    },
+    es: { 
+        Fogo: 'Fuego', 
+        Água: 'Agua', 
+        Terra: 'Tierra', 
+        Ar: 'Aire', 
+        Vapor: 'Vapor', 
+        Lama: 'Barro', 
+        Tempestade: 'Tormenta'
+    }
+};
 
-    const combinacoesValidas = {
-        FogoÁgua: { key: 'Vapor', emoji: '💨' },
-        ÁguaFogo: { key: 'Vapor', emoji: '💨' }
-        // Adicione mais combinações aqui
-    };
+const combinacoesValidas = {
+    FogoÁgua: { key: 'Vapor', emoji: '💨' },
+    ÁguaFogo: { key: 'Vapor', emoji: '💨' },
+    TerraÁgua: { key: 'Lama', emoji: '🌋' },
+    ArFogo: { key: 'Tempestade', emoji: '🌪️' }
+};
 
     function changeLanguage(newLang) {
         language = newLang;
