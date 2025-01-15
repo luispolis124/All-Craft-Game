@@ -2,234 +2,222 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Craft Game</title>
+    <title>All Craft</title>
     <style>
+        /* Estilo permanece o mesmo */
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            justify-content: space-between;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            background-color: #ffcc00;
+            margin: 0;
+            padding: 15px;
+            color: #000;
+            font-size: 24px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #elements {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             gap: 10px;
-            margin: 20px;
-            position: relative;
-            min-height: 100vh;
+            padding: 20px;
+            overflow-y: auto;
         }
-        #language-buttons {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        #language-buttons button {
-            padding: 10px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            background-color: #007BFF;
-            color: white;
-            font-size: 14px;
-            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        #language-buttons button:hover {
-            background-color: #0056b3;
-        }
-        #descobertas {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            margin-top: 20px;
-        }
+
         .element {
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
+            display: flex;
             justify-content: center;
+            align-items: center;
+            background-color: #ffffff;
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 8px;
             padding: 10px;
-            background-color: #e0e0e0;
-            border: 2px solid #b0b0b0;
-            border-radius: 5px;
-            width: 80px;
-            height: 100px;
             text-align: center;
             cursor: pointer;
-            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.2s;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            transition: transform 0.2s ease, background-color 0.3s ease;
         }
+
         .element:hover {
-            background-color: #d0d0d0;
+            background-color: #f0f0f0;
+            transform: scale(1.05);
         }
-        .emoji {
-            font-size: 28px;
+
+        .footer-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #ffffff;
+            box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.1);
         }
-        .name {
-            margin-top: 5px;
-            font-size: 14px;
-            font-weight: bold;
-        }
-        #reset-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            cursor: pointer;
+
+        .reset-button, .language-buttons button {
+            background-color: #007bff;
+            color: #fff;
             border: none;
-            border-radius: 5px;
-            background-color: #007BFF;
-            color: white;
+            border-radius: 8px;
+            padding: 10px 15px;
+            cursor: pointer;
             font-size: 14px;
-            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
         }
-        #reset-button:hover {
+
+        .reset-button:hover, .language-buttons button:hover {
             background-color: #0056b3;
+        }
+
+        .language-buttons button {
+            margin-right: 10px;
+        }
+
+        .language-buttons {
+            display: flex;
         }
     </style>
 </head>
 <body>
-    <div id="elementos-iniciais">
-        <div class="element" data-key="Fogo" onclick="selecionarElemento('Fogo')">
-            <span class="emoji">🔥</span>
-            <div class="name">Fogo</div>
-        </div>
-        <div class="element" data-key="Água" onclick="selecionarElemento('Água')">
-            <span class="emoji">💧</span>
-            <div class="name">Água</div>
-        </div>
-        <div class="element" data-key="Terra" onclick="selecionarElemento('Terra')">
-            <span class="emoji">🌍</span>
-            <div class="name">Terra</div>
-        </div>
-        <div class="element" data-key="Ar" onclick="selecionarElemento('Ar')">
-            <span class="emoji">💨</span>
-            <div class="name">Ar</div>
-        </div>
-    </div>
-    <div id="descobertas"></div>
+    <h1 id="title">Elementos Descobertos</h1>
 
-    <button id="reset-button" onclick="resetarJogo()">Resetar Jogo</button>
+    <div id="elements"></div>
 
-    <div id="language-buttons">
-        <button onclick="changeLanguage('pt')">Português</button>
-        <button onclick="changeLanguage('en')">English</button>
-        <button onclick="changeLanguage('es')">Español</button>
+    <div class="footer-buttons">
+        <div class="language-buttons">
+            <button onclick="changeLanguage('pt')">Português</button>
+            <button onclick="changeLanguage('en')">Inglês</button>
+            <button onclick="changeLanguage('es')">Espanhol</button>
+        </div>
+        <button class="reset-button" onclick="resetElements()">Resetar</button>
     </div>
 
     <script>
-    let elementosSelecionados = [];
-    let elementosCriados = JSON.parse(localStorage.getItem('elementosCriados')) || [];
-    let language = 'pt';
+        const elementsByLanguage = {
+            pt: ["🔥 Fogo", "💧 Água", "🌍 Terra", "🌬️ Ar"],
+            en: ["🔥 Fire", "💧 Water", "🌍 Earth", "🌬️ Air"],
+            es: ["🔥 Fuego", "💧 Agua", "🌍 Tierra", "🌬️ Aire"]
+        };
 
-    const translations = {
-    pt: { 
-        Fogo: 'Fogo', 
-        Água: 'Água', 
-        Terra: 'Terra', 
-        Ar: 'Ar', 
-        Vapor: 'Vapor', 
-        Lama: 'Lama', 
-        Tempestade: 'Tempestade'
-    },
-    en: { 
-        Fogo: 'Fire', 
-        Água: 'Water', 
-        Terra: 'Earth', 
-        Ar: 'Air', 
-        Vapor: 'Steam', 
-        Lama: 'Mud', 
-        Tempestade: 'Storm'
-    },
-    es: { 
-        Fogo: 'Fuego', 
-        Água: 'Agua', 
-        Terra: 'Tierra', 
-        Ar: 'Aire', 
-        Vapor: 'Vapor', 
-        Lama: 'Barro', 
-        Tempestade: 'Tormenta'
-    }
-};
+        const translations = {
+            pt: "Elementos Descobertos",
+            en: "Discovered Elements",
+            es: "Elementos Descubiertos"
+        };
 
-const combinacoesValidas = {
-    FogoÁgua: { key: 'Vapor', emoji: '💨' },
-    ÁguaFogo: { key: 'Vapor', emoji: '💨' },
-    TerraÁgua: { key: 'Lama', emoji: '🌋' },
-    ArFogo: { key: 'Tempestade', emoji: '🌪️' }
-};
+        const recipes = {
+            pt: {
+                "🔥 Fogo+💧 Água": "🌈 Vapor",
+                "💧 Água+🌍 Terra": "🌱 Planta",
+                "🔥 Fogo+🌍 Terra": "⚱️ Cerâmica"
+            },
+            en: {
+                "🔥 Fire+💧 Water": "🌈 Steam",
+                "💧 Water+🌍 Earth": "🌱 Plant",
+                "🔥 Fire+🌍 Earth": "⚱️ Pottery"
+            },
+            es: {
+                "🔥 Fuego+💧 Agua": "🌈 Vapor",
+                "💧 Agua+🌍 Tierra": "🌱 Planta",
+                "🔥 Fuego+🌍 Tierra": "⚱️ Cerámica"
+            }
+        };
 
-    function changeLanguage(newLang) {
-        language = newLang;
-        atualizarElementos();
-        atualizarDescobertas();
-    }
+        let currentLanguage = "pt";
+        let discoveredElements = [];
 
-    function atualizarElementos() {
-        document.querySelectorAll('.element').forEach(element => {
-            const key = element.getAttribute('data-key');
-            element.querySelector('.name').textContent = translations[language][key];
-        });
-    }
+        let selectedElements = [];
 
-    function atualizarDescobertas() {
-        document.querySelectorAll('#descobertas .element').forEach(element => {
-            const key = element.getAttribute('data-key');
-            element.querySelector('.name').textContent = translations[language][key];
-        });
-    }
-
-    function inicializarElementosSalvos() {
-        elementosCriados.forEach(elemento => {
-            criarElementoNaPagina(elemento.key, elemento.emoji);
-        });
-    }
-
-    function selecionarElemento(elemento) {
-        elementosSelecionados.push(elemento);
-        if (elementosSelecionados.length === 2) {
-            combinarElementos();
-        }
-    }
-
-    function combinarElementos() {
-        const [elem1, elem2] = elementosSelecionados;
-        const chaveCombinacao = elem1 + elem2;
-
-        if (combinacoesValidas[chaveCombinacao]) {
-            const novoElemento = combinacoesValidas[chaveCombinacao];
-
-            if (!elementosCriados.some(el => el.key === novoElemento.key)) {
-                elementosCriados.push(novoElemento);
-                localStorage.setItem('elementosCriados', JSON.stringify(elementosCriados));
-                criarElementoNaPagina(novoElemento.key, novoElemento.emoji);
+        // Carrega o progresso do jogador ao abrir o jogo
+        function loadProgress() {
+            const savedData = localStorage.getItem("allCraftProgress");
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                currentLanguage = data.language || "pt";
+                discoveredElements = data.elements || elementsByLanguage[currentLanguage];
+            } else {
+                discoveredElements = [...elementsByLanguage[currentLanguage]];
             }
         }
 
-        elementosSelecionados = [];
-    }
+        // Salva o progresso do jogador
+        function saveProgress() {
+            const data = {
+                language: currentLanguage,
+                elements: discoveredElements
+            };
+            localStorage.setItem("allCraftProgress", JSON.stringify(data));
+        }
 
-    function criarElementoNaPagina(key, emoji) {
-        const novoElementoDiv = document.createElement('div');
-        novoElementoDiv.className = 'element';
-        novoElementoDiv.setAttribute('data-key', key);
-        novoElementoDiv.innerHTML = `
-            <span class="emoji">${emoji}</span>
-            <div class="name">${translations[language][key]}</div>
-        `;
-        novoElementoDiv.onclick = () => selecionarElemento(key);
-        document.getElementById('descobertas').appendChild(novoElementoDiv);
-    }
+        function renderElements() {
+            const elementsContainer = document.getElementById("elements");
+            elementsContainer.innerHTML = "";
 
-    function resetarJogo() {
-        localStorage.removeItem('elementosCriados');
-        elementosCriados = [];
-        document.getElementById('descobertas').innerHTML = '';
-    }
+            discoveredElements.forEach(element => {
+                const elementDiv = document.createElement("div");
+                elementDiv.className = "element";
+                elementDiv.textContent = element;
+                elementDiv.onclick = () => selectElement(element);
+                elementsContainer.appendChild(elementDiv);
+            });
 
-    inicializarElementosSalvos();
-</script>
+            saveProgress(); // Salva sempre que os elementos são renderizados
+        }
+
+        function changeLanguage(language) {
+            currentLanguage = language;
+            document.getElementById("title").textContent = translations[language];
+            renderElements();
+        }
+
+        function selectElement(element) {
+            if (selectedElements.length < 2) {
+                selectedElements.push(element);
+            }
+
+            if (selectedElements.length === 2) {
+                combineElements();
+            }
+        }
+
+        function combineElements() {
+            const combination = selectedElements.join("+");
+            const newElement = recipes[currentLanguage][combination];
+
+            if (newElement && !discoveredElements.includes(newElement)) {
+                discoveredElements.push(newElement);
+                alert(`${newElement} foi descoberto!`);
+            } else if (!newElement) {
+                alert("Nenhuma combinação foi encontrada!");
+            }
+
+            selectedElements = [];
+            renderElements();
+        }
+
+        function resetElements() {
+            if (confirm("Tem certeza de que deseja resetar o progresso?")) {
+                discoveredElements = [...elementsByLanguage[currentLanguage]];
+                saveProgress();
+                renderElements();
+            }
+        }
+
+        // Carrega o progresso e renderiza ao iniciar
+        loadProgress();
+        renderElements();
+    </script>
 </body>
 </html>
