@@ -1,0 +1,74 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: linear-gradient(to bottom, #e3f2fd, #ffffff);
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  color: #333;
+}
+
+#elements, #discovered {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px auto;
+  gap: 10px;
+  max-width: 600px;
+}
+
+.element {
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 10px 15px;
+  cursor: pointer;
+  background: white;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.element:hover {
+  transform: scale(1.1);
+}
+
+#resetBtn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #ff4d4d;
+  color: white;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+  transition: background 0.2s;
+}
+
+#resetBtn:hover {
+  background: #e60000;
+}
+
+/* --- ESTILOS PARA BOTÕES DE IDIOMA COMPACTOS --- */
+
+#language-buttons {
+  margin-bottom: 20px;
+}
+
+#language-buttons button {
+  /* Tornando os botões mais compactos */
+  padding: 5px 10px; 
+  margin: 0 3px;
+  font-size: 12px; 
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #fff;
+  transition: background 0.2s;
+  line-height: 1; /* Para alinhar bem o emoji de bandeira */
+}
+
+#language-buttons button:hover {
+  background: #e0e0e0;
+}

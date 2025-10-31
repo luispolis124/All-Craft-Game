@@ -1,223 +1,37 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Craft</title>
-    <style>
-        /* Estilo permanece o mesmo */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100vh;
-            background-color: #f4f4f4;
-        }
-
-        h1 {
-            text-align: center;
-            background-color: #ffcc00;
-            margin: 0;
-            padding: 15px;
-            color: #000;
-            font-size: 24px;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        #elements {
-            flex: 1;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 10px;
-            padding: 20px;
-            overflow-y: auto;
-        }
-
-        .element {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #ffffff;
-            color: #333;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 10px;
-            text-align: center;
-            cursor: pointer;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-            font-size: 16px;
-            transition: transform 0.2s ease, background-color 0.3s ease;
-        }
-
-        .element:hover {
-            background-color: #f0f0f0;
-            transform: scale(1.05);
-        }
-
-        .footer-buttons {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            background-color: #ffffff;
-            box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .reset-button, .language-buttons button {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            padding: 10px 15px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.3s ease;
-        }
-
-        .reset-button:hover, .language-buttons button:hover {
-            background-color: #0056b3;
-        }
-
-        .language-buttons button {
-            margin-right: 10px;
-        }
-
-        .language-buttons {
-            display: flex;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AllCraft</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1 id="title">Elementos Descobertos</h1>
+  
+  <div id="language-buttons">
+    <button onclick="changeLanguage('pt')"> PT-BR</button>
+    <button onclick="changeLanguage('pt-pt')"> PT-PT</button>
+    <button onclick="changeLanguage('en')"> EN</button>
+    <button onclick="changeLanguage('es')"> ES</button>
+    <button onclick="changeLanguage('fr')"> FR</button>
+    <button onclick="changeLanguage('de')"> DE</button>
+    <button onclick="changeLanguage('ja')"> JA</button>
+    <button onclick="changeLanguage('ko')"> KO</button>
+    <button onclick="changeLanguage('zh')"> ZH</button>
+    <button onclick="changeLanguage('ru')"> RU</button>
+    <button onclick="changeLanguage('uk')"> UK</button>
+  </div>
+  
+  <h1> AllCraft</h1>
+  <p>Combine elementos e descubra novos!</p>
+    
+  <div id="elements"></div>
+    
+  <h2>Descobertas</h2>
+  <div id="discovered"></div>
 
-    <div id="elements"></div>
+  <button id="resetBtn"> Resetar Jogo</button>
 
-    <div class="footer-buttons">
-        <div class="language-buttons">
-            <button onclick="changeLanguage('pt')">Português</button>
-            <button onclick="changeLanguage('en')">Inglês</button>
-            <button onclick="changeLanguage('es')">Espanhol</button>
-        </div>
-        <button class="reset-button" onclick="resetElements()">Resetar</button>
-    </div>
-
-    <script>
-        const elementsByLanguage = {
-            pt: ["🔥 Fogo", "💧 Água", "🌍 Terra", "🌬️ Ar"],
-            en: ["🔥 Fire", "💧 Water", "🌍 Earth", "🌬️ Air"],
-            es: ["🔥 Fuego", "💧 Agua", "🌍 Tierra", "🌬️ Aire"]
-        };
-
-        const translations = {
-            pt: "Elementos Descobertos",
-            en: "Discovered Elements",
-            es: "Elementos Descubiertos"
-        };
-
-        const recipes = {
-            pt: {
-                "🔥 Fogo+💧 Água": "🌈 Vapor",
-                "💧 Água+🌍 Terra": "🌱 Planta",
-                "🔥 Fogo+🌍 Terra": "⚱️ Cerâmica"
-            },
-            en: {
-                "🔥 Fire+💧 Water": "🌈 Steam",
-                "💧 Water+🌍 Earth": "🌱 Plant",
-                "🔥 Fire+🌍 Earth": "⚱️ Pottery"
-            },
-            es: {
-                "🔥 Fuego+💧 Agua": "🌈 Vapor",
-                "💧 Agua+🌍 Tierra": "🌱 Planta",
-                "🔥 Fuego+🌍 Tierra": "⚱️ Cerámica"
-            }
-        };
-
-        let currentLanguage = "pt";
-        let discoveredElements = [];
-
-        let selectedElements = [];
-
-        // Carrega o progresso do jogador ao abrir o jogo
-        function loadProgress() {
-            const savedData = localStorage.getItem("allCraftProgress");
-            if (savedData) {
-                const data = JSON.parse(savedData);
-                currentLanguage = data.language || "pt";
-                discoveredElements = data.elements || elementsByLanguage[currentLanguage];
-            } else {
-                discoveredElements = [...elementsByLanguage[currentLanguage]];
-            }
-        }
-
-        // Salva o progresso do jogador
-        function saveProgress() {
-            const data = {
-                language: currentLanguage,
-                elements: discoveredElements
-            };
-            localStorage.setItem("allCraftProgress", JSON.stringify(data));
-        }
-
-        function renderElements() {
-            const elementsContainer = document.getElementById("elements");
-            elementsContainer.innerHTML = "";
-
-            discoveredElements.forEach(element => {
-                const elementDiv = document.createElement("div");
-                elementDiv.className = "element";
-                elementDiv.textContent = element;
-                elementDiv.onclick = () => selectElement(element);
-                elementsContainer.appendChild(elementDiv);
-            });
-
-            saveProgress(); // Salva sempre que os elementos são renderizados
-        }
-
-        function changeLanguage(language) {
-            currentLanguage = language;
-            document.getElementById("title").textContent = translations[language];
-            renderElements();
-        }
-
-        function selectElement(element) {
-            if (selectedElements.length < 2) {
-                selectedElements.push(element);
-            }
-
-            if (selectedElements.length === 2) {
-                combineElements();
-            }
-        }
-
-        function combineElements() {
-            const combination = selectedElements.join("+");
-            const newElement = recipes[currentLanguage][combination];
-
-            if (newElement && !discoveredElements.includes(newElement)) {
-                discoveredElements.push(newElement);
-                alert(`${newElement} foi descoberto!`);
-            } else if (!newElement) {
-                alert("Nenhuma combinação foi encontrada!");
-            }
-
-            selectedElements = [];
-            renderElements();
-        }
-
-        function resetElements() {
-            if (confirm("Tem certeza de que deseja resetar o progresso?")) {
-                discoveredElements = [...elementsByLanguage[currentLanguage]];
-                saveProgress();
-                renderElements();
-            }
-        }
-
-        // Carrega o progresso e renderiza ao iniciar
-        loadProgress();
-        renderElements();
-    </script>
+  <script src="script.js"></script>
 </body>
 </html>
