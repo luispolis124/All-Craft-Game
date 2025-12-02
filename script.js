@@ -6,16 +6,16 @@ const translations = {
     "discovered_header": "Descobertas",
     "reset_button": "🔁 Resetar Jogo",
     "alert_new": "✨ Nova descoberta:",
-    "alert_not_found": "❌ Nenhuma combinação encontrada!",
-    "confirm_reset": "Tem certeza que deseja resetar o jogo?",
-    // Elementos existentes (54)
-    "Fire": "Fogo", "Water": "Água", "Earth": "Terra", "Air": "Ar",
-    "Steam": "Vapor", "Lava": "Lava", "Energy": "Energia", "Mud": "Lama",
-    "Cloud": "Nuvem", "Thunderstorm": "Tempestade", "Dust": "Poeira", "Clay": "Argila",
-    "Ocean": "Oceano", "Plant": "Planta", "Smoke": "Fumaça", "Tornado": "Tornado",
-    "Sand": "Areia", "Harmattan": "Harmattan", "Sandstorm": "Tempestade de Areia",
-    "Tree": "Árvore", "Swamp": "Pântano", 
-    "Life": "Vida", 
+  	"alert_not_found": "❌ Nenhuma combinação encontrada!",
+  	"confirm_reset": "Tem certeza que deseja resetar o jogo?",
+  	// Elementos existentes (54)
+  	"Fire": "Fogo", "Water": "Água", "Earth": "Terra", "Air": "Ar",
+  	"Steam": "Vapor", "Lava": "Lava", "Energy": "Energia", "Mud": "Lama",
+  	"Cloud": "Nuvem", "Thunderstorm": "Tempestade", "Dust": "Poeira", "Clay": "Argila",
+  	"Ocean": "Oceano", "Plant": "Planta", "Smoke": "Fumaça", "Tornado": "Tornado",
+  	"Sand": "Areia", "Harmattan": "Harmattan", "Sandstorm": "Tempestade de Areia",
+  	"Tree": "Árvore", "Swamp": "Pântano", 
+  	"Life": "Vida", 
   	"Bacteria": "Bactéria", 
   	"Seed": "Semente", "Brick": "Tijolo", "Wall": "Muro", "House": "Casa", 
   	"Wave": "Onda", "Metal": "Metal", "Tool": "Ferramenta", 
@@ -39,28 +39,36 @@ const translations = {
   	"Cotton": "Algodão", "Cloth": "Tecido", "Clothes": "Roupa", "Statue": "Estátua",
   	"Color": "Tinta/Cor", "Painting": "Pintura", "Book": "Livro", "Library": "Livraria",
   	"Comet": "Cometa",
-  	// NOVAS ADIÇÕES - Lote 2 (7) - Autor/Arte (Do plano anterior)
-    "Author": "Autor", "Idea": "Ideia", "Copyright": "Direitos Autorais",
-    "Work": "Obra", "Art": "Arte", "Museum": "Museu",
-    "Public Domain": "Domínio Público",
-  	// NOVAS ADIÇÕES - Lote 3 (5) - RESTAURANTES/COMIDA (Solicitado)
-    "Kitchen": "Cozinha", "Restaurant": "Restaurante", "Hotel": "Hotel",
-    "Recipe": "Receita", "Chef": "Chef"
+  	// NOVAS ADIÇÕES - Lote 2 (7) - Autor/Arte
+    "Author": "Autor", "Idea": "Ideia", "Copyright": "Direitos Autorais",
+    "Work": "Obra", "Art": "Arte", "Museum": "Museu",
+    "Public Domain": "Domínio Público",
+  	// NOVAS ADIÇÕES - Lote 3 (5) - RESTAURANTES/COMIDA
+    "Kitchen": "Cozinha", "Restaurant": "Restaurante", "Hotel": "Hotel",
+    "Recipe": "Receita", "Chef": "Chef",
+    // NOVAS ADIÇÕES - Lote 4 (7) - CINEMA, PATENTE E MÍDIA
+    "Camera": "Câmera", 
+    "Projector": "Projetor",
+    "Film": "Filme/Cinema",
+    "Hollywood": "Hollywood",
+    "Bollywood": "Bollywood",
+    "Patent": "Patente",
+    "Creativity": "Criatividade"
   },
   "pt-pt": { // Português de Portugal (PT-PT)
-    "title": "AllCraft",
-    "tagline": "Combine elementos e descubra novos!",
-    "discovered_header": "Descobertas",
-    "reset_button": "🔁 Reiniciar Jogo",
-    "alert_new": "✨ Nova descoberta:",
-    "alert_not_found": "❌ Nenhuma combinação encontrada!",
-    "confirm_reset": "Tem a certeza que deseja reiniciar o jogo?",
-    // Elementos existentes (54)
-    "Fire": "Fogo", "Water": "Água", "Earth": "Terra", "Air": "Ar",
-    "Steam": "Vapor", "Lava": "Lava", "Energy": "Energia", "Mud": "Lama",
-    "Cloud": "Nuvem", "Thunderstorm": "Trovoada", "Dust": "Poeira", "Clay": "Argila",
-    "Ocean": "Oceano", "Plant": "Planta", "Smoke": "Fumo", "Tornado": "Tornado",
-    "Sand": "Areia", "Harmattan": "Harmattan", "Sandstorm": "Tempestade de Areia",
+  	"title": "AllCraft",
+  	"tagline": "Combine elementos e descubra novos!",
+  	"discovered_header": "Descobertas",
+  	"reset_button": "🔁 Reiniciar Jogo",
+  	"alert_new": "✨ Nova descoberta:",
+  	"alert_not_found": "❌ Nenhuma combinação encontrada!",
+  	"confirm_reset": "Tem a certeza que deseja reiniciar o jogo?",
+  	// Elementos existentes (54)
+  	"Fire": "Fogo", "Water": "Água", "Earth": "Terra", "Air": "Ar",
+  	"Steam": "Vapor", "Lava": "Lava", "Energy": "Energia", "Mud": "Lama",
+  	"Cloud": "Nuvem", "Thunderstorm": "Trovoada", "Dust": "Poeira", "Clay": "Argila",
+  	"Ocean": "Oceano", "Plant": "Planta", "Smoke": "Fumo", "Tornado": "Tornado",
+  	"Sand": "Areia", "Harmattan": "Harmattan", "Sandstorm": "Tempestade de Areia",
   	"Tree": "Árvore", "Swamp": "Pântano", 
   	"Life": "Vida", 
   	"Bacteria": "Bactéria", 
@@ -87,12 +95,20 @@ const translations = {
   	"Color": "Tinta/Cor", "Painting": "Pintura", "Book": "Livro", "Library": "Biblioteca",
   	"Comet": "Cometa",
   	// NOVAS ADIÇÕES - Lote 2 (7) - Autor/Arte
-    "Author": "Autor", "Idea": "Ideia", "Copyright": "Direitos Autorais",
-    "Work": "Obra", "Art": "Arte", "Museum": "Museu",
-    "Public Domain": "Domínio Público",
+  	"Author": "Autor", "Idea": "Ideia", "Copyright": "Direitos Autorais",
+  	"Work": "Obra", "Art": "Arte", "Museum": "Museu",
+  	"Public Domain": "Domínio Público",
   	// NOVAS ADIÇÕES - Lote 3 (5) - RESTAURANTES/COMIDA
-    "Kitchen": "Cozinha", "Restaurant": "Restaurante", "Hotel": "Hotel",
-    "Recipe": "Receita", "Chef": "Chef"
+  	"Kitchen": "Cozinha", "Restaurant": "Restaurante", "Hotel": "Hotel",
+  	"Recipe": "Receita", "Chef": "Chef",
+    // NOVAS ADIÇÕES - Lote 4 (7) - CINEMA, PATENTE E MÍDIA
+    "Camera": "Câmara", 
+    "Projector": "Projetor",
+    "Film": "Filme/Cinema",
+    "Hollywood": "Hollywood",
+    "Bollywood": "Bollywood",
+    "Patent": "Patente",
+    "Creativity": "Criatividade"
   },
   "en": {
   	"title": "AllCraft",
@@ -134,12 +150,20 @@ const translations = {
   	"Color": "Color/Paint", "Painting": "Painting", "Book": "Book", "Library": "Library",
   	"Comet": "Comet",
   	// NOVAS ADIÇÕES - Lote 2 (7) - Autor/Arte
-    "Author": "Author", "Idea": "Idea", "Copyright": "Copyright",
-    "Work": "Work (Creation)", "Art": "Art", "Museum": "Museum",
-    "Public Domain": "Public Domain",
+  	"Author": "Author", "Idea": "Idea", "Copyright": "Copyright",
+  	"Work": "Work (Creation)", "Art": "Art", "Museum": "Museum",
+  	"Public Domain": "Public Domain",
   	// NOVAS ADIÇÕES - Lote 3 (5) - RESTAURANTES/COMIDA
-    "Kitchen": "Kitchen", "Restaurant": "Restaurant", "Hotel": "Hotel",
-    "Recipe": "Recipe", "Chef": "Chef"
+  	"Kitchen": "Kitchen", "Restaurant": "Restaurant", "Hotel": "Hotel",
+  	"Recipe": "Recipe", "Chef": "Chef",
+    // NOVAS ADIÇÕES - Lote 4 (7) - CINEMA, PATENTE E MÍDIA
+    "Camera": "Camera", 
+    "Projector": "Projector",
+    "Film": "Film/Cinema",
+    "Hollywood": "Hollywood",
+    "Bollywood": "Bollywood",
+    "Patent": "Patent",
+    "Creativity": "Creativity"
   },
   "es": {
   	"title": "AllCraft",
@@ -181,12 +205,20 @@ const translations = {
   	"Color": "Tinta/Color", "Painting": "Pintura", "Book": "Libro", "Library": "Biblioteca",
   	"Comet": "Cometa",
   	// NOVAS ADIÇÕES - Lote 2 (7) - Autor/Arte
-    "Author": "Autor", "Idea": "Idea", "Copyright": "Derechos de Autor",
-    "Work": "Obra", "Art": "Arte", "Museum": "Museo",
-    "Public Domain": "Dominio Público",
+  	"Author": "Autor", "Idea": "Idea", "Copyright": "Derechos de Autor",
+  	"Work": "Obra", "Art": "Arte", "Museum": "Museo",
+  	"Public Domain": "Dominio Público",
   	// NOVAS ADIÇÕES - Lote 3 (5) - RESTAURANTES/COMIDA
-    "Kitchen": "Cocina", "Restaurant": "Restaurante", "Hotel": "Hotel",
-    "Recipe": "Receta", "Chef": "Chef"
+  	"Kitchen": "Cocina", "Restaurant": "Restaurante", "Hotel": "Hotel",
+  	"Recipe": "Receta", "Chef": "Chef",
+    // NOVAS ADIÇÕES - Lote 4 (7) - CINEMA, PATENTE E MÍDIA
+    "Camera": "Cámara", 
+    "Projector": "Proyector",
+    "Film": "Película/Cine",
+    "Hollywood": "Hollywood",
+    "Bollywood": "Bollywood",
+    "Patent": "Patente",
+    "Creativity": "Creatividad"
   },
   "fr": {
   	"title": "AllCraft",
@@ -228,12 +260,20 @@ const translations = {
   	"Color": "Couleur/Peinture", "Painting": "Peinture", "Book": "Livre", "Library": "Bibliothèque",
   	"Comet": "Comète",
   	// NOVAS ADIÇÕES - Lote 2 (7) - Autor/Arte
-    "Author": "Auteur", "Idea": "Idée", "Copyright": "Droit d'Auteur",
-    "Work": "Œuvre", "Art": "Art", "Museum": "Musée",
-    "Public Domain": "Domaine Public",
+  	"Author": "Auteur", "Idea": "Idée", "Copyright": "Droit d'Auteur",
+  	"Work": "Œuvre", "Art": "Art", "Museum": "Musée",
+  	"Public Domain": "Domaine Public",
   	// NOVAS ADIÇÕES - Lote 3 (5) - RESTAURANTES/COMIDA
-    "Kitchen": "Cuisine", "Restaurant": "Restaurant", "Hotel": "Hôtel",
-    "Recipe": "Recette", "Chef": "Chef"
+  	"Kitchen": "Cuisine", "Restaurant": "Restaurant", "Hotel": "Hôtel",
+  	"Recipe": "Recette", "Chef": "Chef",
+    // NOVAS ADIÇÕES - Lote 4 (7) - CINEMA, PATENTE E MÍDIA
+    "Camera": "Caméra", 
+    "Projector": "Projecteur",
+    "Film": "Film/Cinéma",
+    "Hollywood": "Hollywood",
+    "Bollywood": "Bollywood",
+    "Patent": "Brevet", // Patente/Brevet
+    "Creativity": "Créativité"
   },
   "de": {
   	"title": "AllCraft",
@@ -275,12 +315,20 @@ const translations = {
   	"Color": "Farbe", "Painting": "Gemälde", "Book": "Buch", "Library": "Bibliothek",
   	"Comet": "Komet",
   	// NOVAS ADIÇÕES - Lote 2 (7) - Autor/Arte
-    "Author": "Autor", "Idea": "Idee", "Copyright": "Urheberrecht",
-    "Work": "Werk", "Art": "Kunst", "Museum": "Museum",
-    "Public Domain": "Gemeinfreiheit",
+  	"Author": "Autor", "Idea": "Idee", "Copyright": "Urheberrecht",
+  	"Work": "Werk", "Art": "Kunst", "Museum": "Museum",
+  	"Public Domain": "Gemeinfreiheit",
   	// NOVAS ADIÇÕES - Lote 3 (5) - RESTAURANTES/COMIDA
-    "Kitchen": "Küche", "Restaurant": "Restaurant", "Hotel": "Hotel",
-    "Recipe": "Rezept", "Chef": "Chef"
+  	"Kitchen": "Küche", "Restaurant": "Restaurant", "Hotel": "Hotel",
+  	"Recipe": "Rezept", "Chef": "Chef",
+    // NOVAS ADIÇÕES - Lote 4 (7) - CINEMA, PATENTE E MÍDIA
+    "Camera": "Kamera", 
+    "Projector": "Projektor",
+    "Film": "Film/Kino",
+    "Hollywood": "Hollywood",
+    "Bollywood": "Bollywood",
+    "Patent": "Patent",
+    "Creativity": "Kreativität"
   },
   "ja": { // Japonês
   	"title": "AllCraft",
@@ -322,12 +370,20 @@ const translations = {
   	"Color": "色/塗料", "Painting": "絵画", "Book": "本", "Library": "図書館",
   	"Comet": "彗星",
   	// NOVAS ADIÇÕES - Lote 2 (7) - Autor/Arte
-    "Author": "著者", "Idea": "アイデア", "Copyright": "著作権",
-    "Work": "作品", "Art": "芸術", "Museum": "美術館",
-    "Public Domain": "パブリックドメイン",
+  	"Author": "著者", "Idea": "アイデア", "Copyright": "著作権",
+  	"Work": "作品", "Art": "芸術", "Museum": "美術館",
+  	"Public Domain": "パブリックドメイン",
   	// NOVAS ADIÇÕES - Lote 3 (5) - RESTAURANTES/COMIDA
-    "Kitchen": "キッチン", "Restaurant": "レストラン", "Hotel": "ホテル",
-    "Recipe": "レシピ", "Chef": "シェフ"
+  	"Kitchen": "キッチン", "Restaurant": "レストラン", "Hotel": "ホテル",
+  	"Recipe": "レシピ", "Chef": "シェフ",
+    // NOVAS ADIÇÕES - Lote 4 (7) - CINEMA, PATENTE E MÍDIA
+    "Camera": "カメラ", 
+    "Projector": "映写機",
+    "Film": "フィルム/映画",
+    "Hollywood": "ハリウッド",
+    "Bollywood": "ボリウッド",
+    "Patent": "特許",
+    "Creativity": "創造性"
   },
   "ko": { // Coreano
   	"title": "AllCraft",
@@ -369,14 +425,22 @@ const translations = {
   	"Color": "색/페인트", "Painting": "그림", "Book": "책", "Library": "도서관",
   	"Comet": "혜성",
   	// NOVAS ADIÇÕES - Lote 2 (7) - Autor/Arte
-    "Author": "저자", "Idea": "아이디어", "Copyright": "저작권",
-    "Work": "작품", "Art": "예술", "Museum": "박물관",
-    "Public Domain": "퍼블릭 도메인",
+  	"Author": "저자", "Idea": "아이디어", "Copyright": "저작권",
+  	"Work": "작품", "Art": "예술", "Museum": "박물관",
+  	"Public Domain": "퍼블릭 도메인",
   	// NOVAS ADIÇÕES - Lote 3 (5) - RESTAURANTES/COMIDA
-    "Kitchen": "주방", "Restaurant": "레스토랑", "Hotel": "호텔",
-    "Recipe": "레시피", "Chef": "셰프"
+  	"Kitchen": "주방", "Restaurant": "레스토랑", "Hotel": "호텔",
+  	"Recipe": "레시피", "Chef": "셰프",
+    // NOVAS ADIÇÕES - Lote 4 (7) - CINEMA, PATENTE E MÍDIA
+    "Camera": "카메라", 
+    "Projector": "영사기",
+    "Film": "필름/영화",
+    "Hollywood": "할리우드",
+    "Bollywood": "발리우드",
+    "Patent": "특허",
+    "Creativity": "창의성"
   },
-  "zh": { // Chinês (Simplificado) - CORRIGIDO
+  "zh": { // Chinês (Simplificado)
   	"title": "AllCraft",
   	"tagline": "组合元素，发现新元素！",
   	"discovered_header": "已发现",
@@ -416,12 +480,20 @@ const translations = {
   	"Color": "颜色/油漆", "Painting": "画", "Book": "书", "Library": "图书馆",
   	"Comet": "彗星",
   	// NOVAS ADIÇÕES - Lote 2 (7) - Autor/Arte
-    "Author": "作者", "Idea": "主意", "Copyright": "版权",
-    "Work": "作品", "Art": "艺术", "Museum": "博物馆",
-    "Public Domain": "公共领域",
+  	"Author": "作者", "Idea": "主意", "Copyright": "版权",
+  	"Work": "作品", "Art": "艺术", "Museum": "博物馆",
+  	"Public Domain": "公共领域",
   	// NOVAS ADIÇÕES - Lote 3 (5) - RESTAURANTES/COMIDA
-    "Kitchen": "厨房", "Restaurant": "餐厅", "Hotel": "酒店",
-    "Recipe": "食谱", "Chef": "厨师"
+  	"Kitchen": "厨房", "Restaurant": "餐厅", "Hotel": "酒店",
+  	"Recipe": "食谱", "Chef": "厨师",
+    // NOVAS ADIÇÕES - Lote 4 (7) - CINEMA, PATENTE E MÍDIA
+    "Camera": "相机", 
+    "Projector": "投影仪",
+    "Film": "胶片/电影",
+    "Hollywood": "好莱坞",
+    "Bollywood": "宝莱坞",
+    "Patent": "专利",
+    "Creativity": "创造力"
   },
   "ru": { // Russo
   	"title": "AllCraft",
@@ -463,12 +535,20 @@ const translations = {
   	"Color": "Цвет/Краска", "Painting": "Картина", "Book": "Книга", "Library": "Библиотека",
   	"Comet": "Комета",
   	// NOVAS ADIÇÕES - Lote 2 (7) - Autor/Arte
-    "Author": "Автор", "Idea": "Идея", "Copyright": "Авторское Право",
-    "Work": "Произведение", "Art": "Искусство", "Museum": "Музей",
-    "Public Domain": "Общественное Достояние",
+  	"Author": "Автор", "Idea": "Идея", "Copyright": "Авторское Право",
+  	"Work": "Произведение", "Art": "Искусство", "Museum": "Музей",
+  	"Public Domain": "Общественное Достояние",
   	// NOVAS ADIÇÕES - Lote 3 (5) - RESTAURANTES/COMIDA
-    "Kitchen": "Кухня", "Restaurant": "Ресторан", "Hotel": "Отель",
-    "Recipe": "Рецепт", "Chef": "Шеф-повар"
+  	"Kitchen": "Кухня", "Restaurant": "Ресторан", "Hotel": "Отель",
+  	"Recipe": "Рецепт", "Chef": "Шеф-повар",
+    // NOVAS ADIÇÕES - Lote 4 (7) - CINEMA, PATENTE E MÍDIA
+    "Camera": "Камера", 
+    "Projector": "Проектор",
+    "Film": "Фильм/Кино",
+    "Hollywood": "Голливуд",
+    "Bollywood": "Болливуд",
+    "Patent": "Патент",
+    "Creativity": "Творчество"
   },
   "uk": { // Ucraniano
   	"title": "AllCraft",
@@ -510,12 +590,20 @@ const translations = {
   	"Color": "Колір/Фарба", "Painting": "Картина", "Book": "Книга", "Library": "Бібліотека",
   	"Comet": "Комета",
   	// NOVAS ADIÇÕES - Lote 2 (7) - Autor/Arte
-    "Author": "Автор", "Idea": "Ідея", "Copyright": "Авторське Право",
-    "Work": "Твір", "Art": "Мистецтво", "Museum": "Музей",
-    "Public Domain": "Суспільне Надбання",
+  	"Author": "Автор", "Idea": "Ідея", "Copyright": "Авторське Право",
+  	"Work": "Твір", "Art": "Мистецтво", "Museum": "Музей",
+  	"Public Domain": "Суспільне Надбання",
   	// NOVAS ADIÇÕES - Lote 3 (5) - RESTAURANTES/COMIDA
-    "Kitchen": "Кухня", "Restaurant": "Ресторан", "Hotel": "Готель",
-    "Recipe": "Рецепт", "Chef": "Шеф-кухар"
+  	"Kitchen": "Кухня", "Restaurant": "Ресторан", "Hotel": "Готель",
+  	"Recipe": "Рецепт", "Chef": "Шеф-кухар",
+    // NOVAS ADIÇÕES - Lote 4 (7) - CINEMA, PATENTE E MÍDIA
+    "Camera": "Камера", 
+    "Projector": "Проектор",
+    "Film": "Фільм/Кіно",
+    "Hollywood": "Голлівуд",
+    "Bollywood": "Боллівуд",
+    "Patent": "Патент",
+    "Creativity": "Творчість"
   }
 };
 
@@ -563,7 +651,7 @@ let elements = {
   	"Book": "📖",
   	"Library": "📚",
   	"Comet": "☄️",
-  	// ADIÇÕES: AUTOR / CRIATIVIDADE (7)
+  	// ADIÇÕES: AUTOR / CRIATIVIDADE
   	"Author": "✍️",
   	"Idea": "💡",
   	"Copyright": "©️",
@@ -571,12 +659,20 @@ let elements = {
   	"Art": "🎨",
   	"Museum": "🏛️",
   	"Public Domain": "🕊️",
-  	// ADIÇÕES: RESTAURANTE / COMIDA (5)
+  	// ADIÇÕES: RESTAURANTE / COMIDA
   	"Kitchen": "🔪", 
   	"Restaurant": "🍽️",
   	"Hotel": "🛎️",
   	"Recipe": "📜",
-  	"Chef": "👨‍🍳" 
+  	"Chef": "👨‍🍳",
+  	// ADIÇÕES FINAIS: CINEMA, PATENTE E MÍDIA (7)
+  	"Camera": "📷", 
+  	"Projector": "📽️",
+  	"Film": "🎞️",
+  	"Hollywood": "🌟",
+  	"Bollywood": "💃",
+  	"Patent": "®️",
+  	"Creativity": "🧠"
 };
 
 // RECEITAS ATUALIZADAS E CORRIGIDAS 
@@ -637,7 +733,7 @@ let recipes = {
   	"Stone+Wall": "Statue", "Plant+Oil": "Color", "Color+Wall": "Painting", 
   	"Tree+Tool": "Book", "Book+House": "Library", "Star+Fire": "Comet",
 
-  	// NOVO: AUTOR / CRIATIVIDADE (7 Novas Receitas)
+  	// NOVO: AUTOR / CRIATIVIDADE
   	"Human+Book": "Author", 
   	"Author+Light": "Idea", 
   	"Author+Tool": "Copyright", 
@@ -646,12 +742,21 @@ let recipes = {
   	"Art+House": "Museum", 
   	"Book+Time": "Public Domain",
 
-  	// NOVO: RESTAURANTE / COMIDA (5 Novas Receitas)
-  	"Cook+House": "Kitchen", // Cozinhar + Casa = Cozinha
-  	"Kitchen+Wall": "Restaurant", // Cozinha + Muro/Parede = Restaurante (Estabelecimento)
-  	"Restaurant+House": "Hotel", // Restaurante + Casa = Hotel (Acomodação + Comida)
-  	"Cook+Book": "Recipe", // Cozinhar + Livro = Receita
-  	"Human+Kitchen": "Chef" // Humano + Cozinha = Chef
+  	// NOVO: RESTAURANTE / COMIDA
+  	"Cook+House": "Kitchen", 
+  	"Kitchen+Wall": "Restaurant", 
+  	"Restaurant+House": "Hotel", 
+  	"Cook+Book": "Recipe", 
+  	"Human+Kitchen": "Chef",
+
+  	// NOVO: CINEMA, PATENTE E MÍDIA (7 Novas Receitas)
+  	"Light Bulb+Glass": "Camera", // Lente (Glass) + Luz (Light Bulb) = Câmera
+  	"Camera+Light": "Projector", // Câmera + Luz (projeção) = Projetor
+  	"Projector+Wall": "Film", // Projetor + Muro/Tela = Filme (Cinema)
+  	"Film+House": "Hollywood", // Filme + Casa (local de produção) = Hollywood
+  	"Film+Dune": "Bollywood", // Filme + Duna (local geográfico/cultural) = Bollywood
+  	"Idea+Copyright": "Patent", // Ideia + Direitos Autorais (de proteção) = Patente
+  	"Author+Idea": "Creativity" // Autor + Ideia = Criatividade
 };
 
 let discovered = new Set();
