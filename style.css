@@ -4,6 +4,7 @@ body {
   background: linear-gradient(to bottom, #e3f2fd, #ffffff);
   margin: 0;
   padding: 20px;
+  min-height: 100vh;
 }
 
 h1 {
@@ -16,7 +17,7 @@ h1 {
   justify-content: center;
   margin: 20px auto;
   gap: 10px;
-  max-width: 600px;
+  max-width: 800px; /* Aumentei um pouco para caber mais elementos lado a lado */
 }
 
 .element {
@@ -26,15 +27,21 @@ h1 {
   cursor: pointer;
   background: white;
   box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
+  transition: transform 0.2s, background-color 0.2s;
+  user-select: none; /* Evita selecionar o texto ao clicar rápido */
 }
 
 .element:hover {
   transform: scale(1.1);
+  background-color: #f0f8ff;
+}
+
+.element:active {
+  transform: scale(0.95);
 }
 
 #resetBtn {
-  margin-top: 20px;
+  margin-top: 40px;
   padding: 10px 20px;
   font-size: 16px;
   border: none;
@@ -54,21 +61,24 @@ h1 {
 
 #language-buttons {
   margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
 }
 
 #language-buttons button {
-  /* Tornando os botões mais compactos */
   padding: 5px 10px; 
-  margin: 0 3px;
   font-size: 12px; 
   border: 1px solid #ccc;
   border-radius: 5px;
   cursor: pointer;
   background: #fff;
-  transition: background 0.2s;
-  line-height: 1; /* Para alinhar bem o emoji de bandeira */
+  transition: all 0.2s;
+  line-height: 1.2;
 }
 
 #language-buttons button:hover {
   background: #e0e0e0;
+  border-color: #999;
 }
