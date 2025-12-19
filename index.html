@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AllCraft</title>
+  
+  <title>AllCraft | O Jogo da Criação</title>
+  <meta name="description" content="Combine elementos, crie o mundo e descubra a saga do Leão Dentro de Mim no AllCraft.">
+
+  <link rel="icon" type="image/png" href="favicon.png">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,26 +22,30 @@
     <button onclick="changeLanguage('it')">🇮🇹 IT</button>
     <button onclick="changeLanguage('de')">🇩🇪 DE</button>
     <button onclick="changeLanguage('uk')">🇺🇦 UK</button>
-    
     <button onclick="changeLanguage('ru')">🇷🇺 RU</button>
     <button onclick="changeLanguage('ar')">🇸🇦 AR</button>
     <button onclick="changeLanguage('hi')">🇮🇳 HI</button>
     <button onclick="changeLanguage('tr')">🇹🇷 TR</button>
-    
     <button onclick="changeLanguage('ja')">🇯🇵 JA</button>
     <button onclick="changeLanguage('ko')">🇰🇷 KO</button>
     <button onclick="changeLanguage('zh')">🇨🇳 ZH</button>
-</div>
+  </div>
   
-  <h1>⚛️ AllCraft</h1>
-  <p>Combine elementos e descubra novos!</p>
+  <header>
+    <h1 id="title">⚛️ AllCraft</h1>
+    <p id="tagline">Combine elementos e descubra novos!</p>
+  </header>
     
   <div id="elements"></div>
     
-  <h2>Descobertas</h2>
+  <hr>
+
+  <h2 id="discovered_header">Descobertas</h2>
   <div id="discovered"></div>
 
-  <button id="resetBtn">🔁 Resetar Jogo</button>
+  <div class="controls">
+    <button id="resetBtn">🔁 Resetar Jogo</button>
+  </div>
 
   <script src="script.js"></script>
 </body>
