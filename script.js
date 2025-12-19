@@ -1,7 +1,13 @@
 // ==========================================
 // 1. CONFIGURAÇÕES E ESTADO INICIAL
 // ==========================================
-let currentLanguage = localStorage.getItem('allcraft_lang') || "pt"; // Corrigido aqui
+let currentLanguage = localStorage.getItem('allcraft_lang') || "pt-BR";
+
+// Caso o valor antigo "pt" esteja salvo, isso força a correção para o novo padrão:
+if (currentLanguage === "pt" || !currentLanguage) {
+    currentLanguage = "pt-BR";
+}
+
 let firstPick = null;
 let basics = ["Fire", "Water", "Earth", "Air"];
 let discovered = new Set();
@@ -10,17 +16,21 @@ let discovered = new Set();
 // 2. TRADUÇÕES (UI E ELEMENTOS)
 // ==========================================
 const translations = {
-  "pt": {
+  "pt-BR": {
     "title": "AllCraft", "tagline": "Combine elementos e descubra novos!", "discovered_header": "Descobertas", "reset_button": "🔁 Resetar Jogo", "alert_new": "✨ Nova descoberta:", "alert_not_found": "❌ Nenhuma combinação encontrada!", "confirm_reset": "Tem certeza que deseja resetar o jogo?",
     "Fire": "Fogo", "Water": "Água", "Earth": "Terra", "Air": "Ar", "Steam": "Vapor", "Lava": "Lava", "Energy": "Energia", "Mud": "Lama", "Cloud": "Nuvem", "Thunderstorm": "Tempestade", "Dust": "Poeira", "Clay": "Argila", "Ocean": "Oceano", "Plant": "Planta", "Smoke": "Fumaça", "Tornado": "Tornado", "Sand": "Areia", "Harmattan": "Harmattan", "Sandstorm": "Tempestade de Areia", "Tree": "Árvore", "Swamp": "Pântano", "Life": "Vida", "Bacteria": "Bactéria", "Seed": "Semente", "Brick": "Tijolo", "Wall": "Muro", "House": "Casa", "Wave": "Onda", "Metal": "Metal", "Tool": "Ferramenta", "Time": "Tempo", "Pressure": "Pressão", "Stone": "Pedra", "Bridge": "Ponte", "Farm": "Fazenda", "Field": "Campo", "Engine": "Motor", "Wheel": "Roda", "Car": "Carro", "Robot": "Robô", "Dinosaur": "Dinossauro", "Fossil": "Fóssil", "Oil": "Óleo", "Star": "Estrela", "Rocket": "Foguete", "Space": "Espaço", "Mountain": "Montanha", "Island": "Ilha", "Volcano": "Vulcão", "Eruption": "Erupção", "Forest": "Floresta", "Jungle": "Selva", "Windmill": "Moinho de Vento", "Electricity": "Eletricidade", "Light": "Luz", "Wind": "Vento", "Sun": "Sol", "Moon": "Lua", "Planet": "Planeta", "Dune": "Duna", "Eclipse": "Eclipse", "Pottery": "Olaria", "Surf": "Surf", "Geyser": "Gêiser", "Tea": "Chá", "Human": "Humano", "Adam": "Adão", "Eve": "Eva", "Glass": "Vidro", "Light Bulb": "Lâmpada", "Window": "Janela", "Aquarium": "Aquário", "Hourglass": "Ampulheta", "Fish": "Peixe", "Bottle": "Garrafa", "Hole": "Buraco", "Door": "Porta", "Cook": "Cozinhar", "Weapon": "Arma", "Cave": "Caverna", "Campfire": "Fogueira", "Train": "Trem", "Cotton": "Algodão", "Cloth": "Tecido", "Clothes": "Roupa", "Statue": "Estátua", "Color": "Tinta/Cor", "Painting": "Pintura", "Book": "Livro", "Library": "Biblioteca", "Comet": "Cometa", "Author": "Autor", "Idea": "Ideia", "Copyright": "Direitos Autorais", "Work": "Obra", "Art": "Arte", "Museum": "Museu", "Public Domain": "Domínio Público", "Kitchen": "Cozinha", "Restaurant": "Restaurante", "Hotel": "Hotel", "Recipe": "Receita", "Chef": "Chef", "Camera": "Câmera", "Projector": "Projetor", "Film": "Filme/Cinema", "Hollywood": "Hollywood", "Bollywood": "Bollywood", "Patent": "Patente", "Creativity": "Criatividade", "God": "Deus", "Cain": "Caim", "Abel": "Abel", "Noah": "Noé", "Shem": "Sem", "Ham": "Cam", "Japheth": "Jafé", "Abraham": "Abraão", "Sarah": "Sara", "Isaac": "Isaque", "Ishmael": "Ismael", "Hagar": "Agar", "Lot": "Ló", "Infinite": "Infinito", "City": "Cidade", "Sacrifice": "Sacrifício", "Ark": "Arca", "Craft": "Criação", "Infinitecraft": "Infinite Craft", "All": "Tudo", "Allcraft": "All Craft", "Dragon": "Dragão", "Cat": "Gato", "Bird": "Pássaro", "Lion": "Leão", "Tiger": "Tigre", "King": "Rei", "Brazil": "Brasil", "Luis": "Luis (Criador)", "Leão Brasileiro de Luis": "Leão Brasileiro de Luis", "Quanshian": "Quanshian nermeacos", "Rebekah": "Rebeca", "Jacob": "Jacó", "Esau": "Esaú", "The Lion King": "O Rei Leão", "The Lion King II: Simba's Pride": "O Rei Leão 2", "The Lion King 1½": "O Rei Leão 3", "The Lion Inside Me": "O Leão Dentro de Mim"
+  },
+  "pt-PT": {
+    "title": "AllCraft", "tagline": "Combina elementos e descobre novos!", "discovered_header": "Descobertas", "reset_button": "🔁 Reiniciar Jogo", "alert_new": "✨ Nova descoberta:", "alert_not_found": "❌ Nenhuma combinação encontrada!", "confirm_reset": "Tens a certeza que desejas reiniciar o jogo?",
+    "Fire": "Fogo", "Water": "Água", "Earth": "Terra", "Air": "Ar", "Steam": "Vapor", "Lava": "Lava", "Energy": "Energia", "Mud": "Lama", "Cloud": "Nuvem", "Thunderstorm": "Tempestade", "Dust": "Poeira", "Clay": "Argila", "Ocean": "Oceano", "Plant": "Planta", "Smoke": "Fumo", "Tornado": "Tornado", "Sand": "Areia", "Harmattan": "Harmattan", "Sandstorm": "Tempestade de Areia", "Tree": "Árvore", "Swamp": "Pântano", "Life": "Vida", "Bacteria": "Bactéria", "Seed": "Semente", "Brick": "Tijolo", "Wall": "Muro", "House": "Casa", "Wave": "Onda", "Metal": "Metal", "Tool": "Ferramenta", "Time": "Tempo", "Pressure": "Pressão", "Stone": "Pedra", "Bridge": "Ponte", "Farm": "Quinta", "Field": "Campo", "Engine": "Motor", "Wheel": "Roda", "Car": "Carro", "Robot": "Robô", "Dinosaur": "Dinossauro", "Fossil": "Fóssil", "Oil": "Óleo", "Star": "Estrela", "Rocket": "Foguete", "Space": "Espaço", "Mountain": "Montanha", "Island": "Ilha", "Volcano": "Vulcão", "Eruption": "Erupção", "Forest": "Floresta", "Jungle": "Selva", "Windmill": "Moinho de Vento", "Electricity": "Eletricidade", "Light": "Luz", "Wind": "Vento", "Sun": "Sol", "Moon": "Lua", "Planet": "Planeta", "Dune": "Duna", "Eclipse": "Eclipse", "Pottery": "Olariia", "Surf": "Surf", "Geyser": "Géiser", "Tea": "Chá", "Human": "Humano", "Adam": "Adão", "Eve": "Eva", "Glass": "Vidro", "Light Bulb": "Lâmpada", "Window": "Janela", "Aquarium": "Aquário", "Hourglass": "Ampulheta", "Fish": "Peixe", "Bottle": "Garrafa", "Hole": "Buraco", "Door": "Porta", "Cook": "Cozinhar", "Weapon": "Arma", "Cave": "Caverna", "Campfire": "Fogueira", "Train": "Comboio", "Cotton": "Algodão", "Cloth": "Tecido", "Clothes": "Roupa", "Statue": "Estátua", "Color": "Cor", "Painting": "Pintura", "Book": "Livro", "Library": "Biblioteca", "Comet": "Cometa", "Author": "Autor", "Idea": "Ideia", "Copyright": "Direitos Autorais", "Work": "Obra", "Art": "Arte", "Museum": "Museu", "Public Domain": "Domínio Público", "Kitchen": "Cozinha", "Restaurant": "Restaurante", "Hotel": "Hotel", "Recipe": "Receita", "Chef": "Chef", "Camera": "Câmara", "Projector": "Projetor", "Film": "Filme/Cinema", "Hollywood": "Hollywood", "Bollywood": "Bollywood", "Patent": "Patente", "Creativity": "Criatividade", "God": "Deus", "Cain": "Caim", "Abel": "Abel", "Noah": "Noé", "Shem": "Sem", "Ham": "Cão", "Japheth": "Jafé", "Abraham": "Abraão", "Sarah": "Sara", "Isaac": "Isaque", "Ishmael": "Ismael", "Hagar": "Agar", "Lot": "Ló", "Infinite": "Infinito", "City": "Cidade", "Sacrifice": "Sacrifício", "Ark": "Arca", "Craft": "Criação", "Infinitecraft": "Infinite Craft", "All": "Tudo", "Allcraft": "All Craft", "Dragon": "Dragão", "Cat": "Gato", "Bird": "Pássaro", "Lion": "Leão", "Tiger": "Tigre", "King": "Rei", "Brazil": "Brasil", "Luis": "Luis (Criador)", "Leão Brasileiro de Luis": "Leão Brasileiro de Luis", "Quanshian": "Quanshian nermeacos", "Rebekah": "Rebeca", "Jacob": "Jacó", "Esau": "Esaú", "The Lion King": "O Rei Leão", "The Lion King II: Simba's Pride": "O Rei Leão 2", "The Lion King 1½": "O Rei Leão 3", "The Lion Inside Me": "O Leão Dentro de Mim"
   },
   "en": {
     "title": "AllCraft", "tagline": "Combine elements and discover new ones!", "discovered_header": "Discovered", "reset_button": "🔁 Reset Game", "alert_new": "✨ New discovery:", "alert_not_found": "❌ No combination found!", "confirm_reset": "Are you sure you want to reset the game?",
     "Fire": "Fire", "Water": "Water", "Earth": "Earth", "Air": "Air", "Steam": "Steam", "Lava": "Lava", "Energy": "Energy", "Mud": "Mud", "Cloud": "Cloud", "Thunderstorm": "Thunderstorm", "Dust": "Dust", "Clay": "Clay", "Ocean": "Ocean", "Plant": "Plant", "Smoke": "Smoke", "Tornado": "Tornado", "Sand": "Sand", "Harmattan": "Harmattan", "Sandstorm": "Sandstorm", "Tree": "Tree", "Swamp": "Swamp", "Life": "Life", "Bacteria": "Bacteria", "Seed": "Seed", "Brick": "Brick", "Wall": "Wall", "House": "House", "Wave": "Wave", "Metal": "Metal", "Tool": "Tool", "Time": "Time", "Pressure": "Pressure", "Stone": "Stone", "Bridge": "Bridge", "Farm": "Farm", "Field": "Field", "Engine": "Engine", "Wheel": "Wheel", "Car": "Car", "Robot": "Robot", "Dinosaur": "Dinosaur", "Fossil": "Fossil", "Oil": "Oil", "Star": "Star", "Rocket": "Rocket", "Space": "Space", "Mountain": "Mountain", "Island": "Island", "Volcano": "Volcano", "Eruption": "Eruption", "Forest": "Forest", "Jungle": "Jungle", "Windmill": "Windmill", "Electricity": "Electricity", "Light": "Light", "Wind": "Wind", "Sun": "Sun", "Moon": "Moon", "Planet": "Planet", "Dune": "Dune", "Eclipse": "Eclipse", "Pottery": "Pottery", "Surf": "Surf", "Geyser": "Geyser", "Tea": "Tea", "Human": "Human", "Adam": "Adam", "Eve": "Eve", "Glass": "Glass", "Light Bulb": "Light Bulb", "Window": "Window", "Aquarium": "Aquarium", "Hourglass": "Hourglass", "Fish": "Fish", "Bottle": "Bottle", "Hole": "Hole", "Door": "Door", "Cook": "Cook", "Weapon": "Weapon", "Cave": "Cave", "Campfire": "Campfire", "Train": "Train", "Cotton": "Cotton", "Cloth": "Cloth", "Clothes": "Clothes", "Statue": "Statue", "Color": "Color/Paint", "Painting": "Painting", "Book": "Book", "Library": "Library", "Comet": "Comet", "Author": "Author", "Idea": "Idea", "Copyright": "Copyright", "Work": "Work", "Art": "Art", "Museum": "Museum", "Public Domain": "Public Domain", "Kitchen": "Kitchen", "Restaurant": "Restaurant", "Hotel": "Hotel", "Recipe": "Recipe", "Chef": "Chef", "Camera": "Camera", "Projector": "Projector", "Film": "Film", "Hollywood": "Hollywood", "Bollywood": "Bollywood", "Patent": "Patent", "Creativity": "Creativity", "God": "God", "Cain": "Cain", "Abel": "Abel", "Noah": "Noah", "Shem": "Shem", "Ham": "Ham", "Japheth": "Japheth", "Abraham": "Abraham", "Sarah": "Sarah", "Isaac": "Isaac", "Ishmael": "Ishmael", "Hagar": "Hagar", "Lot": "Lot", "Infinite": "Infinite", "City": "City", "Sacrifice": "Sacrifice", "Ark": "Ark", "Craft": "Craft", "Infinitecraft": "Infinite Craft", "All": "All", "Allcraft": "All Craft", "Dragon": "Dragon", "Cat": "Cat", "Bird": "Bird", "Lion": "Lion", "Tiger": "Tiger", "King": "King", "Brazil": "Brazil", "Luis": "Luis", "Leão Brasileiro de Luis": "Luis' Brazilian Lion", "Quanshian": "Quanshian", "Rebekah": "Rebekah", "Jacob": "Jacob", "Esau": "Esau", "The Lion King": "The Lion King", "The Lion King II: Simba's Pride": "The Lion King 2", "The Lion King 1½": "The Lion King 3", "The Lion Inside Me": "The Lion Inside Me"
   },
   "es": {
-    "title": "AllCraft", "tagline": "¡Combina elementos y descubre nuevos!", "discovered_header": "Descubrimientos", "reset_button": "🔁 Reiniciar", "alert_new": "✨ Nuevo descubrimiento:", "alert_not_found": "❌ ¡No se encontró combinación!", "confirm_reset": "¿Estás seguro de que quieres reiniciar?",
-    "Fire": "Fuego", "Water": "Agua", "Earth": "Tierra", "Air": "Aire", "Steam": "Vapor", "Lava": "Lava", "Energy": "Energía", "Mud": "Barro", "Cloud": "Nube", "Thunderstorm": "Tormenta", "Dust": "Polvo", "Clay": "Arcilla", "Ocean": "Océano", "Plant": "Planta", "Smoke": "Humo", "Tornado": "Tornado", "Sand": "Arena", "Harmattan": "Harmattan", "Sandstorm": "Tormenta de Arena", "Tree": "Árbol", "Swamp": "Pantano", "Life": "Vida", "Bacteria": "Bacteria", "Seed": "Semilla", "Brick": "Ladrillo", "Wall": "Muro", "House": "Casa", "Wave": "Ola", "Metal": "Metal", "Tool": "Herramienta", "Time": "Tiempo", "Pressure": "Presión", "Stone": "Piedra", "Bridge": "Puente", "Farm": "Granja", "Field": "Campo", "Engine": "Motor", "Wheel": "Rueda", "Car": "Coche", "Robot": "Robot", "Dinosaur": "Dinosaurio", "Fossil": "Fósil", "Oil": "Petróleo", "Star": "Estrella", "Rocket": "Cohete", "Space": "Espacio", "Mountain": "Montaña", "Island": "Isla", "Volcano": "Volcán", "Eruption": "Erupción", "Forest": "Bosque", "Jungle": "Selva", "Windmill": "Molino de Viento", "Electricity": "Electricidad", "Light": "Luz", "Wind": "Viento", "Sun": "Sol", "Moon": "Luna", "Planet": "Planeta", "Dune": "Duna", "Eclipse": "Eclipse", "Pottery": "Alfarería", "Surf": "Surf", "Geyser": "Géiser", "Tea": "Té", "Human": "Humano", "Adam": "Adán", "Eve": "Eva", "Glass": "Vidrio", "Light Bulb": "Bombilla", "Window": "Ventana", "Aquarium": "Acuario", "Hourglass": "Reloj de Arena", "Fish": "Pez", "Bottle": "Botella", "Hole": "Agujero", "Door": "Puerta", "Cook": "Cocinar", "Weapon": "Arma", "Cave": "Cueva", "Campfire": "Hoguera", "Train": "Tren", "Cotton": "Algodón", "Cloth": "Tela", "Clothes": "Ropa", "Statue": "Estatua", "Color": "Color", "Painting": "Pintura", "Book": "Libro", "Library": "Biblioteca", "Comet": "Cometa", "Author": "Autor", "Idea": "Idea", "Copyright": "Derechos de Autor", "Work": "Obra", "Art": "Arte", "Museum": "Museo", "Public Domain": "Dominio Público", "Kitchen": "Cocina", "Restaurant": "Restaurante", "Hotel": "Hotel", "Recipe": "Receta", "Chef": "Chef", "Camera": "Cámara", "Projector": "Proyector", "Film": "Película", "Hollywood": "Hollywood", "Bollywood": "Bollywood", "Patent": "Patente", "Creativity": "Creatividad", "God": "Dios", "Cain": "Caín", "Abel": "Abel", "Noah": "Noé", "Shem": "Sem", "Ham": "Cam", "Japheth": "Jafet", "Abraham": "Abraham", "Sarah": "Sara", "Isaac": "Isaac", "Ishmael": "Ismael", "Hagar": "Agar", "Lot": "Lot", "Infinite": "Infinito", "City": "Ciudad", "Sacrifice": "Sacrificio", "Ark": "Arca", "Craft": "Creación", "Infinitecraft": "Infinite Craft", "All": "Todo", "Allcraft": "All Craft", "Dragon": "Dragón", "Cat": "Gato", "Bird": "Pájaro", "Lion": "León", "Tiger": "Tigre", "King": "Rey", "Brazil": "Brasil", "Luis": "Luis", "Leão Brasileiro de Luis": "León Brasileño de Luis", "Quanshian": "Quanshian", "Rebekah": "Rebeca", "Jacob": "Jacob", "Esau": "Esaú", "The Lion King": "El Rey León", "The Lion King II: Simba's Pride": "El Rey León 2", "The Lion King 1½": "El Rey León 3", "The Lion Inside Me": "El León Dentro de Mí"
+    "title": "AllCraft", "tagline": "¡Combina elementos e descubre nuevos!", "discovered_header": "Descubrimientos", "reset_button": "🔁 Reiniciar", "alert_new": "✨ Nuevo descubrimiento:", "alert_not_found": "❌ ¡No se encontró combinación!", "confirm_reset": "¿Estás seguro de que quieres reiniciar?",
+    "Fire": "Fuego", "Water": "Agua", "Earth": "Tierra", "Air": "Aire", "Steam": "Vapor", "Lava": "Lava", "Energy": "Energía", "Mud": "Barro", "Cloud": "Nube", "Thunderstorm": "Tormenta", "Dust": "Polvo", "Clay": "Arcilla", "Ocean": "Océano", "Plant": "Planta", "Smoke": "Humo", "Tornado": "Tornado", "Sand": "Arena", "Harmattan": "Harmattan", "Sandstorm": "Tormenta de Arena", "Tree": "Árbol", "Swamp": "Pantano", "Life": "Vida", "Bacteria": "Bacteria", "Seed": "Semilla", "Brick": "Ladrillo", "Wall": "Muro", "House": "Casa", "Wave": "Ola", "Metal": "Metal", "Tool": "Herramienta", "Time": "Tiempo", "Pressure": "Presión", "Stone": "Piedra", "Bridge": "Puente", "Farm": "Granja", "Field": "Campo", "Engine": "Motor", "Wheel": "Rueda", "Car": "Coche", "Robot": "Robot", "Dinosaur": "Dinosaurio", "Fossil": "Fósil", "Oil": "Petróleo", "Star": "Estrella", "Rocket": "Cohete", "Space": "Espacio", "Mountain": "Montaña", "Island": "Isla", "Volcano": "Volcán", "Eruption": "Erupción", "Forest": "Bosque", "Jungle": "Selva", "Windmill": "Molino de Vento", "Electricity": "Electricidad", "Light": "Luz", "Wind": "Viento", "Sun": "Sol", "Moon": "Luna", "Planet": "Planeta", "Dune": "Duna", "Eclipse": "Eclipse", "Pottery": "Alfarería", "Surf": "Surf", "Geyser": "Géiser", "Tea": "Té", "Human": "Humano", "Adam": "Adán", "Eve": "Eva", "Glass": "Vidrio", "Light Bulb": "Bombilla", "Window": "Ventana", "Aquarium": "Acuario", "Hourglass": "Reloj de Arena", "Fish": "Pez", "Bottle": "Botella", "Hole": "Agujero", "Door": "Puerta", "Cook": "Cocinar", "Weapon": "Arma", "Cave": "Cueva", "Campfire": "Hoguera", "Train": "Tren", "Cotton": "Algodón", "Cloth": "Tela", "Clothes": "Ropa", "Statue": "Estatua", "Color": "Color", "Painting": "Pintura", "Book": "Libro", "Library": "Biblioteca", "Comet": "Cometa", "Author": "Autor", "Idea": "Idea", "Copyright": "Derechos de Autor", "Work": "Obra", "Art": "Arte", "Museum": "Museu", "Public Domain": "Dominio Público", "Kitchen": "Cocina", "Restaurant": "Restaurante", "Hotel": "Hotel", "Recipe": "Receta", "Chef": "Chef", "Camera": "Cámara", "Projector": "Proyector", "Film": "Película", "Hollywood": "Hollywood", "Bollywood": "Bollywood", "Patent": "Patente", "Creativity": "Creatividad", "God": "Dios", "Cain": "Caín", "Abel": "Abel", "Noah": "Noé", "Shem": "Sem", "Ham": "Cam", "Japheth": "Jafet", "Abraham": "Abraham", "Sarah": "Sara", "Isaac": "Isaac", "Ishmael": "Ismael", "Hagar": "Agar", "Lot": "Lot", "Infinite": "Infinito", "City": "Ciudad", "Sacrifice": "Sacrificio", "Ark": "Arca", "Craft": "Creación", "Infinitecraft": "Infinite Craft", "All": "Todo", "Allcraft": "All Craft", "Dragon": "Dragón", "Cat": "Gato", "Bird": "Pájaro", "Lion": "León", "Tiger": "Tigre", "King": "Rey", "Brazil": "Brasil", "Luis": "Luis", "Leão Brasileiro de Luis": "León Brasileño de Luis", "Quanshian": "Quanshian", "Rebekah": "Rebeca", "Jacob": "Jacob", "Esau": "Esaú", "The Lion King": "El Rey León", "The Lion King II: Simba's Pride": "El Rey León 2", "The Lion King 1½": "El Rey León 3", "The Lion Inside Me": "El León Dentro de Mí"
   },
   "fr": {
     "title": "AllCraft", "tagline": "Combinez des éléments et découvrez!", "discovered_header": "Découvertes", "reset_button": "🔁 Réinitialiser", "alert_new": "✨ Nouvelle découverte:", "alert_not_found": "❌ Aucune combinaison!", "confirm_reset": "Voulez-vous vraiment réinitialiser?",
@@ -31,8 +41,8 @@ const translations = {
     "Fire": "Огонь", "Water": "Вода", "Earth": "Земля", "Air": "Воздух", "Steam": "Пар", "Lava": "Лава", "Energy": "Энергия", "Mud": "Грязь", "Cloud": "Облако", "Thunderstorm": "Гроза", "Dust": "Пыль", "Clay": "Глина", "Ocean": "Океан", "Plant": "Растение", "Smoke": "Дым", "Tornado": "Торнадо", "Sand": "Песок", "Harmattan": "Харматтан", "Sandstorm": "Песчаная буря", "Tree": "Дерево", "Swamp": "Болото", "Life": "Жизнь", "Bacteria": "Бактерии", "Seed": "Семена", "Brick": "Кирпич", "Wall": "Стена", "House": "Дом", "Wave": "Волна", "Metal": "Металл", "Tool": "Инструмент", "Time": "Время", "Pressure": "Давление", "Stone": "Камень", "Bridge": "Мост", "Farm": "Ферма", "Field": "Поле", "Engine": "Двигатель", "Wheel": "Колесо", "Car": "Машина", "Robot": "Робот", "Dinosaur": "Динозавр", "Fossil": "Ископаемое", "Oil": "Нефть", "Star": "Звезда", "Rocket": "Ракета", "Space": "Космос", "Mountain": "Гора", "Island": "Остров", "Volcano": "Вулкан", "Eruption": "Извержение", "Forest": "Лес", "Jungle": "Джунгли", "Windmill": "Мельница", "Electricity": "Электричество", "Light": "Свет", "Wind": "Ветер", "Sun": "Солнце", "Moon": "Луна", "Planet": "Планета", "Dune": "Дюна", "Eclipse": "Затмение", "Pottery": "Керамика", "Surf": "Серфинг", "Geyser": "Гейзер", "Tea": "Чай", "Human": "Человек", "Adam": "Адам", "Eve": "Ева", "Glass": "Стекло", "Light Bulb": "Лампочка", "Window": "Окно", "Aquarium": "Аквариум", "Hourglass": "Песочные часы", "Fish": "Рыба", "Bottle": "Бутылка", "Hole": "Дыра", "Door": "Дверь", "Cook": "Готовить", "Weapon": "Оружие", "Cave": "Пещера", "Campfire": "Костер", "Train": "Поезд", "Cotton": "Хлопок", "Cloth": "Ткань", "Clothes": "Одежда", "Statue": "Статуя", "Color": "Цвет", "Painting": "Картина", "Book": "Книга", "Library": "Библиотека", "Comet": "Комета", "Author": "Автор", "Idea": "Идея", "Copyright": "Авторское право", "Work": "Работа", "Art": "Искусство", "Museum": "Музей", "Public Domain": "Общественное достояние", "Kitchen": "Кухня", "Restaurant": "Ресторан", "Hotel": "Отель", "Recipe": "Рецепт", "Chef": "Шеф-повар", "Camera": "Камера", "Projector": "Проектор", "Film": "Фильм", "Hollywood": "Голливуд", "Bollywood": "Болливуд", "Patent": "Патент", "Creativity": "Творчество", "God": "Бог", "Cain": "Каин", "Abel": "Авель", "Noah": "Ной", "Shem": "Сим", "Ham": "Хам", "Japheth": "Иафет", "Abraham": "Авраам", "Sarah": "Сарра", "Isaac": "Исаак", "Ishmael": "Измаил", "Hagar": "Агарь", "Lot": "Лот", "Infinite": "Бесконечность", "City": "Город", "Sacrifice": "Жертва", "Ark": "Ковчег", "Craft": "Ремесло", "Infinitecraft": "Infinite Craft", "All": "Все", "Allcraft": "All Craft", "Dragon": "Дракон", "Cat": "Кот", "Bird": "Птица", "Lion": "Лев", "Tiger": "Тигр", "King": "Король", "Brazil": "Бразилия", "Luis": "Луис", "Leão Brasileiro de Luis": "Бразильский лев Луиса", "Quanshian": "Куаншиан", "Rebekah": "Ревекка", "Jacob": "Иаков", "Esau": "Исав", "The Lion King": "Король Лев", "The Lion King II: Simba's Pride": "Король Лев 2", "The Lion King 1½": "Король Лев 3", "The Lion Inside Me": "Лев внутри меня"
   },
   "it": {
-    "title": "AllCraft", "tagline": "Combina gli elementi e scopri i nuovi!", "discovered_header": "Scoperte", "reset_button": "🔁 Reset Gioco", "alert_new": "✨ Nuova scoperta:", "alert_not_found": "❌ Nessuna combinazione trovata!", "confirm_reset": "Sei sicuro di voler resettare il gioco?",
-    "Fire": "Fuoco", "Water": "Acqua", "Earth": "Terra", "Air": "Aria", "Steam": "Vapore", "Lava": "Lava", "Energy": "Energia", "Mud": "Fango", "Cloud": "Nuvola", "Thunderstorm": "Temporale", "Dust": "Polvere", "Clay": "Argilla", "Ocean": "Oceano", "Plant": "Pianta", "Smoke": "Fumo", "Tornado": "Tornado", "Sand": "Sabbia", "Harmattan": "Harmattan", "Sandstorm": "Tempesta di Sabbia", "Tree": "Albero", "Swamp": "Palude", "Life": "Vita", "Bacteria": "Batteri", "Seed": "Seme", "Brick": "Mattone", "Wall": "Muro", "House": "Casa", "Wave": "Onda", "Metal": "Metallo", "Tool": "Strumento", "Time": "Tempo", "Pressure": "Pressione", "Stone": "Pietra", "Bridge": "Ponte", "Farm": "Fattoria", "Field": "Campo", "Engine": "Motore", "Wheel": "Ruota", "Car": "Auto", "Robot": "Robot", "Dinosaur": "Dinosauro", "Fossil": "Fossile", "Oil": "Petrolio", "Star": "Stella", "Rocket": "Razzo", "Space": "Spazio", "Mountain": "Montagna", "Island": "Isola", "Volcano": "Vulcano", "Eruption": "Eruzione", "Forest": "Foresta", "Jungle": "Giungla", "Windmill": "Mulino a Vento", "Electricity": "Elettricità", "Light": "Luce", "Wind": "Vento", "Sun": "Sole", "Moon": "Luna", "Planet": "Pianeta", "Dune": "Duna", "Eclipse": "Eclissi", "Pottery": "Ceramica", "Surf": "Surf", "Geyser": "Geyser", "Tea": "Tè", "Human": "Umano", "Adam": "Adamo", "Eve": "Eva", "Glass": "Vetro", "Light Bulb": "Lampadina", "Window": "Finestra", "Aquarium": "Acquario", "Hourglass": "Clessidra", "Fish": "Pesce", "Bottle": "Bottiglia", "Hole": "Buco", "Door": "Porta", "Cook": "Cucinare", "Weapon": "Arma", "Cave": "Caverna", "Campfire": "Fuoco da Campo", "Train": "Treno", "Cotton": "Cotone", "Cloth": "Stoffa", "Clothes": "Vestiti", "Statue": "Statua", "Color": "Colore", "Painting": "Pittura", "Book": "Libro", "Library": "Biblioteca", "Comet": "Cometa", "Author": "Autore", "Idea": "Idea", "Copyright": "Copyright", "Work": "Opera", "Art": "Arte", "Museum": "Museo", "Public Domain": "Dominio Pubblico", "Kitchen": "Cucina", "Restaurant": "Ristorante", "Hotel": "Hotel", "Recipe": "Ricetta", "Chef": "Chef", "Camera": "Telecamera", "Projector": "Proiettore", "Film": "Film", "Hollywood": "Hollywood", "Bollywood": "Bollywood", "Patent": "Brevetto", "Creativity": "Creatività", "God": "Dio", "Cain": "Caino", "Abel": "Abele", "Noah": "Noè", "Shem": "Sem", "Ham": "Cam", "Japheth": "Iafet", "Abraham": "Abramo", "Sarah": "Sara", "Isaac": "Isacco", "Ishmael": "Ismaele", "Hagar": "Agar", "Lot": "Lot", "Rebekah": "Rebecca", "Jacob": "Giacobbe", "Esau": "Esaù", "Infinite": "Infinito", "City": "Città", "Sacrifice": "Sacrificio", "Ark": "Arca", "Craft": "Creazione", "Infinitecraft": "Infinite Craft", "All": "Tutto", "Allcraft": "All Craft", "Dragon": "Drago", "Cat": "Gatto", "Bird": "Uccello", "Lion": "Leone", "Tiger": "Tigre", "King": "Re", "Brazil": "Brasile", "Luis": "Luis", "Leão Brasileiro de Luis": "Leone Brasiliano di Luis", "Quanshian": "Quanshian", "The Lion King": "Il Re Leone", "The Lion King II: Simba's Pride": "Il Re Leone 2", "The Lion King 1½": "Il Re Leone 3", "The Lion Inside Me": "Il Leone Dentro di Me"
+    "title": "AllCraft", "tagline": "Combina gli elementos e scopri i nuovi!", "discovered_header": "Scoperte", "reset_button": "🔁 Reset Gioco", "alert_new": "✨ Nuova scoperta:", "alert_not_found": "❌ Nessuna combinazione trovata!", "confirm_reset": "Sei sicuro di voler resettare il gioco?",
+    "Fire": "Fuoco", "Water": "Acqua", "Earth": "Terra", "Air": "Aria", "Steam": "Vapore", "Lava": "Lava", "Energy": "Energia", "Mud": "Fango", "Cloud": "Nuvola", "Thunderstorm": "Temporale", "Dust": "Polvere", "Clay": "Argilla", "Ocean": "Oceano", "Plant": "Pianta", "Smoke": "Fumo", "Tornado": "Tornado", "Sand": "Sabbia", "Harmattan": "Harmattan", "Sandstorm": "Tempesta di Sabbia", "Tree": "Albero", "Swamp": "Palude", "Life": "Vita", "Bacteria": "Batteri", "Seme": "Seme", "Brick": "Mattone", "Wall": "Muro", "House": "Casa", "Wave": "Onda", "Metal": "Metallo", "Tool": "Strumento", "Time": "Tempo", "Pressure": "Pressione", "Stone": "Pietra", "Bridge": "Ponte", "Farm": "Fattoria", "Field": "Campo", "Engine": "Motore", "Wheel": "Ruota", "Car": "Auto", "Robot": "Robot", "Dinosaur": "Dinosauro", "Fossil": "Fossile", "Oil": "Petrolio", "Star": "Stella", "Rocket": "Razzo", "Space": "Spazio", "Mountain": "Montagna", "Island": "Isola", "Volcano": "Vulcano", "Eruption": "Eruzione", "Forest": "Foresta", "Jungle": "Giungla", "Windmill": "Mulino a Vento", "Electricity": "Elettricità", "Light": "Luce", "Wind": "Vento", "Sun": "Sole", "Moon": "Luna", "Planet": "Pianeta", "Dune": "Duna", "Eclipse": "Eclissi", "Pottery": "Ceramica", "Surf": "Surf", "Geyser": "Geyser", "Tea": "Tè", "Human": "Umano", "Adam": "Adamo", "Eve": "Eva", "Glass": "Vetro", "Light Bulb": "Lampadina", "Window": "Finestra", "Aquarium": "Acquario", "Hourglass": "Clessidra", "Fish": "Pesce", "Bottle": "Bottiglia", "Hole": "Buco", "Door": "Porta", "Cook": "Cucinare", "Weapon": "Arma", "Cave": "Caverna", "Campfire": "Fuoco da Campo", "Train": "Treno", "Cotton": "Cotone", "Cloth": "Stoffa", "Clothes": "Vestiti", "Statue": "Statua", "Color": "Colore", "Painting": "Pittura", "Book": "Libro", "Library": "Biblioteca", "Comet": "Cometa", "Author": "Autore", "Idea": "Idea", "Copyright": "Copyright", "Work": "Opera", "Art": "Arte", "Museum": "Museo", "Public Domain": "Dominio Pubblico", "Kitchen": "Cucina", "Restaurant": "Ristorante", "Hotel": "Hotel", "Recipe": "Ricetta", "Chef": "Chef", "Camera": "Telecamera", "Projector": "Projetor", "Film": "Film", "Hollywood": "Hollywood", "Bollywood": "Bollywood", "Patent": "Brevetto", "Creativity": "Creatività", "God": "Dio", "Cain": "Caino", "Abel": "Abele", "Noah": "Noè", "Shem": "Sem", "Ham": "Cam", "Japheth": "Iafet", "Abraham": "Abramo", "Sarah": "Sara", "Isaac": "Isacco", "Ishmael": "Ismaele", "Hagar": "Agar", "Lot": "Lot", "Rebekah": "Rebecca", "Jacob": "Giacobbe", "Esau": "Esaù", "Infinite": "Infinito", "City": "Città", "Sacrifice": "Sacrificio", "Ark": "Arca", "Craft": "Creazione", "Infinitecraft": "Infinite Craft", "All": "Tutto", "Allcraft": "All Craft", "Dragon": "Drago", "Cat": "Gatto", "Bird": "Uccello", "Lion": "Leone", "Tiger": "Tigre", "King": "Re", "Brazil": "Brasile", "Luis": "Luis", "Leão Brasileiro de Luis": "Leone Brasiliano di Luis", "Quanshian": "Quanshian", "The Lion King": "Il Re Leone", "The Lion King II: Simba's Pride": "Il Re Leone 2", "The Lion King 1½": "Il Re Leone 3", "The Lion Inside Me": "Il Leone Dentro di Me"
   },
   "hi": {
     "title": "AllCraft", "tagline": "तत्वों को मिलाएं और नए खोजें!", "discovered_header": "खोजे गए", "reset_button": "🔁 रीसेट करें", "alert_new": "✨ नई खोज:", "alert_not_found": "❌ कोई संयोजन नहीं मिला!", "confirm_reset": "क्या आप वाकई रीसेट करना चाहते हैं?",
@@ -44,29 +54,21 @@ const translations = {
   },
   "ar": {
     "title": "AllCraft", "tagline": "اجمع العناصر واكتشف الجديد!", "discovered_header": "المكتشفات", "reset_button": "🔁 إعادة تعيين", "alert_new": "✨ اكتشاف جديد:", "alert_not_found": "❌ لا توجد تركيبة!", "confirm_reset": "هل أنت متأكد من إعادة التعيين؟",
-    "Fire": "نار", "Water": "ماء", "Earth": "أرض", "Air": "هواء", "Steam": "بخار", "Lava": "حمم", "Energy": "طاقة", "Mud": "طين", "Cloud": "سحابة", "Thunderstorm": "عاصفة رعدية", "Dust": "غبار", "Clay": "صلصال", "Ocean": "محيط", "Plant": "نبات", "Smoke": "دخان", "Tornado": "إعصار", "Sand": "رمل", "Harmattan": "الهرماتان", "Sandstorm": "عاصفة رملية", "Tree": "شجرة", "Swamp": "مستنقع", "Life": "حياة", "Bacteria": "بكتيريا", "Seed": "بذرة", "Brick": "طوب", "Wall": "جدار", "House": "منزل", "Wave": "موجة", "Metal": "معدن", "Tool": "أداة", "Time": "وقت", "Pressure": "ضغط", "Stone": "حجر", "Bridge": "جسر", "Farm": "مزرعة", "Field": "حقل", "Engine": "محرك", "Wheel": "عجلة", "Car": "سيارة", "Robot": "روبوت", "Dinosaur": "ديناصور", "Fossil": "أحفور", "Oil": "نفط", "Star": "نجم", "Rocket": "صاروخ", "Space": "فضاء", "Mountain": "جبل", "Island": "جزيرة", "Volcano": "بركان", "Eruption": "ثوران", "Forest": "غابة", "Jungle": "أدغال", "Windmill": "طاحونة هوائية", "Electricity": "كهرباء", "Light": "ضوء", "Wind": "ريح", "Sun": "شمس", "Moon": "قمر", "Planet": "كوكب", "Dune": "كثيب", "Eclipse": "كسوف", "Pottery": "فخار", "Surf": "ركوب الأمواج", "Geyser": "ينبوع", "Tea": "شاي", "Human": "إنسان", "Adam": "آدم", "Eve": "حواء", "Glass": "زجاج", "Light Bulb": "مصباح", "Window": "نافذة", "Aquarium": "حوض أسماك", "Hourglass": "ساعة رملية", "Fish": "سمك", "Bottle": "زجاجة", "Hole": "حفرة", "Door": "باب", "Cook": "طبخ", "Weapon": "سلاح", "Cave": "كهف", "Campfire": "نار مخيم", "Train": "قطار", "Cotton": "قطن", "Cloth": "قماش", "Clothes": "ملابس", "Statue": "تمثال", "Color": "لون", "Painting": "لوحة", "Book": "كتاب", "Library": "مكتبة", "Comet": "مذنب", "Author": "مؤلف", "Idea": "فكرة", "Copyright": "حقوق النشر", "Work": "عمل", "Art": "فن", "Museum": "متحف", "Public Domain": "ملكية عامة", "Kitchen": "مطبخ", "Restaurant": "مطعم", "Hotel": "فندق", "Recipe": "وصفة", "Chef": "طباخ", "Camera": "كاميرا", "Projector": "جهاز عرض", "Film": "فيلم", "Hollywood": "هوليوود", "Bollywood": "بوليوود", "Patent": "براءة اختراع", "Creativity": "إبداع", "God": "الله", "Cain": "قابيل", "Abel": "هابيل", "Noah": "نوح", "Shem": "سام", "Ham": "حام", "Japheth": "يافث", "Abraham": "إبراهيم", "Sarah": "سارة", "Isaac": "إسحاق", "Ishmael": "إسماعيل", "Hagar": "هاجر", "Lot": "لوط", "Infinite": "لانهائي", "City": "مدينة", "Sacrifice": "تضحية", "Ark": "فلك", "Craft": "حرفة", "Infinitecraft": "Infinite Craft", "All": "الكل", "Allcraft": "All Craft", "Dragon": "تنين", "Cat": "قطة", "Bird": "طائر", "Lion": "أسد", "Tiger": "نمر", "King": "ملك", "Brazil": "البرازيل", "Luis": "لويس", "Leão Brasileiro de Luis": "أسد لويس البرازيلي", "Quanshian": "كوانشيان", "Rebekah": "رفقة", "Jacob": "يعقوب", "Esau": "عيسو", "The Lion King": "الأسد الملك", "The Lion King II: Simba's Pride": "الأسد الملك 2", "The Lion King 1½": "الأسد الملك 3", "The Lion Inside Me": "الأسد الذي بداخلي"
-  },
-  "uk": {
-    "title": "AllCraft", "tagline": "Поєднуй елементи та відкривай нове!", "discovered_header": "Відкриття", "reset_button": "🔁 Скинути гру", "alert_new": "✨ Нове відкриття:", "alert_not_found": "❌ Комбінацію не знайдено!", "confirm_reset": "Ви впевнені, що хочете скинути гру?",
-    "Fire": "Вогонь", "Water": "Вода", "Earth": "Земля", "Air": "Повітря", "Steam": "Пара", "Lava": "Лава", "Energy": "Енергія", "Mud": "Грязь", "Cloud": "Хмара", "Thunderstorm": "Гроза", "Dust": "Пил", "Clay": "Глина", "Ocean": "Океан", "Plant": "Рослина", "Life": "Життя", "Human": "Людина", "Adam": "Адам", "Eve": "Ева", "God": "Бог", "Lion": "Лев", "Brazil": "Бразилія", "The Lion Inside Me": "Лев у мені"
-  },
-  "ja": {
-    "title": "オールクラフト", "tagline": "エレメントを組み合わせて新しい発見をしよう！", "discovered_header": "発見済み", "reset_button": "🔁 リセット", "alert_new": "✨ 新しい発見：", "alert_not_found": "❌ 組み合わせが見つかりません！", "confirm_reset": "本当にゲームをリセットしますか？",
-    "Fire": "火", "Water": "水", "Earth": "土", "Air": "空気", "Steam": "蒸気", "Lava": "溶岩", "Energy": "エネルギー", "Mud": "泥", "Cloud": "雲", "Life": "生命", "Human": "人間", "God": "神", "Lion": "ライオン", "Brazil": "ブラジル", "The Lion Inside Me": "私の中のライオン"
-  },
-  "ko": {
-    "title": "올크래프트", "tagline": "요소를 조합하여 새로운 것을 발견하세요!", "discovered_header": "발견된 항목", "reset_button": "🔁 초기화", "alert_new": "✨ 새로운 발견:", "alert_not_found": "❌ 조합을 찾을 수 없습니다!", "confirm_reset": "정말로 게임을 초기화하시겠습니까?",
-    "Fire": "불", "Water": "물", "Earth": "흙", "Air": "공기", "Steam": "증기", "Lava": "용암", "Energy": "에너지", "Mud": "진흙", "Life": "생명", "Human": "인간", "God": "신", "Lion": "사자", "Brazil": "브라질", "The Lion Inside Me": "내 안의 사자"
-  },
-  "zh": {
-    "title": "全能合成", "tagline": "组合元素，发现新事物！", "discovered_header": "已发现", "reset_button": "🔁 重置游戏", "alert_new": "✨ 新发现：", "alert_not_found": "❌ 未找到组合！", "confirm_reset": "您确定要重置游戏吗？",
-    "Fire": "火", "Water": "水", "Earth": "土", "Air": "空气", "Steam": "蒸汽", "Lava": "岩浆", "Energy": "能量", "Mud": "泥", "Life": "生命", "Human": "人类", "God": "上帝", "Lion": "狮子", "Brazil": "巴西", "The Lion Inside Me": "我心中的狮子"
-  },
-  "de": {
-    "title": "AllCraft", "tagline": "Kombiniere Elemente und entdecke neue!", "discovered_header": "Entdeckungen", "reset_button": "🔁 Spiel zurücksetzen", "alert_new": "✨ Neue Entdeckung:", "alert_not_found": "❌ Keine Kombination gefunden!", "confirm_reset": "Bist du sicher, dass du das Spiel zurücksetzen möchtest?",
-    "Fire": "Feuer", "Water": "Wasser", "Earth": "Erde", "Air": "Luft", "Steam": "Dampf", "Lava": "Lava", "Energy": "Energie", "Mud": "Schlamm", "Cloud": "Wolke", "Thunderstorm": "Gewitter", "Dust": "Staub", "Clay": "Lehm", "Ocean": "Ozean", "Plant": "Pflanze", "Smoke": "Rauch", "Tornado": "Tornado", "Sand": "Sand", "Harmattan": "Harmattan", "Sandstorm": "Sandsturm", "Tree": "Baum", "Swamp": "Sumpf", "Life": "Leben", "Bacteria": "Bakterien", "Seed": "Samen", "Brick": "Ziegel", "Wall": "Wand", "House": "Haus", "Wave": "Welle", "Metal": "Metall", "Tool": "Werkzeug", "Time": "Zeit", "Pressure": "Druck", "Stone": "Stein", "Bridge": "Brücke", "Farm": "Bauernhof", "Field": "Feld", "Engine": "Motor", "Wheel": "Rad", "Car": "Auto", "Robot": "Roboter", "Dinosaur": "Dinosaurier", "Fossil": "Fossil", "Oil": "Öl", "Star": "Stern", "Rocket": "Rakete", "Space": "Weltraum", "Mountain": "Berg", "Island": "Insel", "Volcano": "Vulkan", "Eruption": "Ausbruch", "Forest": "Wald", "Jungle": "Dschungel", "Windmill": "Windmühle", "Electricity": "Elektrizität", "Light": "Licht", "Wind": "Wind", "Sun": "Sonne", "Moon": "Mond", "Planet": "Planet", "Dune": "Düne", "Eclipse": "Finsternis", "Pottery": "Töpferei", "Surf": "Surfen", "Geyser": "Geysir", "Tea": "Tee", "Human": "Mensch", "Adam": "Adam", "Eve": "Eva", "Glass": "Glas", "Light Bulb": "Glühbirne", "Window": "Fenster", "Aquarium": "Aquarium", "Hourglass": "Sanduhr", "Fish": "Fisch", "Bottle": "Flasche", "Hole": "Loch", "Door": "Tür", "Cook": "Kochen", "Weapon": "Waffe", "Cave": "Höhle", "Campfire": "Lagerfeuer", "Train": "Zug", "Cotton": "Baumwolle", "Cloth": "Stoff", "Clothes": "Kleidung", "Statue": "Statue", "Color": "Farbe", "Painting": "Gemälde", "Book": "Buch", "Library": "Bibliothek", "Comet": "Komet", "Author": "Autor", "Idea": "Idee", "Copyright": "Urheberrecht", "Work": "Werk", "Art": "Kunst", "Museum": "Museum", "Public Domain": "Gemeinfreiheit", "Kitchen": "Küche", "Restaurant": "Restaurant", "Hotel": "Hotel", "Recipe": "Rezept", "Chef": "Chefkoch", "Camera": "Kamera", "Projector": "Projektor", "Film": "Film", "Hollywood": "Hollywood", "Bollywood": "Bollywood", "Patent": "Patent", "Creativity": "Kreativität", "God": "Gott", "Cain": "Kain", "Abel": "Abel", "Noah": "Noah", "Shem": "Sem", "Ham": "Ham", "Japheth": "Jafet", "Abraham": "Abraham", "Sarah": "Sara", "Isaac": "Isaak", "Ishmael": "Ismael", "Hagar": "Hagar", "Lot": "Lot", "Infinite": "Unendlich", "City": "Stadt", "Sacrifice": "Opfer", "Ark": "Arche", "Craft": "Handwerk", "Infinitecraft": "Infinite Craft", "All": "Alles", "Allcraft": "All Craft", "Dragon": "Drache", "Cat": "Katze", "Bird": "Vogel", "Lion": "Löwe", "Tiger": "Tiger", "King": "König", "Brazil": "Brasilien", "Luis": "Luis", "Leão Brasileiro de Luis": "Luis' Brasilianischer Löwe", "Quanshian": "Quanshian", "Rebekah": "Rebekka", "Jacob": "Jakob", "Esau": "Esau", "The Lion King": "Der König der Löwen", "The Lion King II: Simba's Pride": "Der König der Löwen 2", "The Lion King 1½": "Der König der Löwen 3", "The Lion Inside Me": "Der Löwe in mir"
+    "Fire": "نار", "Water": "ماء", "Earth": "أرض", "Air": "هواء", "Steam": "بخار", "Lava": "حمم", "Energy": "طاقة", "Mud": "طين", "Cloud": "سحابة", "Thunderstorm": "عاصفة رعدية", "Dust": "غبار", "Clay": "صلصال", "Ocean": "محيط", "Plant": "نبات", "Smoke": "دخان", "Tornado": "إعصار", "Sand": "رمل", "Harmattan": "الهرماتان", "Sandstorm": "عاصفة رملية", "Tree": "شجرة", "Swamp": "مستنقع", "Life": "حياة", "Bacteria": "بكتيريا", "Seed": "بذرة", "Brick": "طوب", "Wall": "جدار", "House": "منزل", "Wave": "موجة", "Metal": "معدن", "Tool": "أداة", "Time": "وقت", "Pressure": "ضغط", "Stone": "حجر", "Bridge": "جسر", "Farm": "مزرعة", "Field": "حقل", "Engine": "محرك", "Wheel": "عجلة", "Car": "سيارة", "Robot": "روبوت", "Dinosaur": "ديناصور", "Fossil": "أحفور", "Oil": "نفط", "Star": "نجم", "Rocket": "صاروخ", "Space": "فضاء", "Mountain": "جبل", "Island": "جزيرة", "Volcano": "بركان", "Eruption": "ثوران", "Forest": "غابة", "Jungle": "أدغال", "Windmill": "طاحونة هوائية", "Electricity": "كهرباء", "Light": "ضوء", "Wind": "ريح", "Sun": "شمس", "Moon": "قمر", "Planet": "كوكب", "Dune": "كثيب", "Eclipse": "كسوف", "Pottery": "فخار", "Surf": "ركوب الأمواج", "Geyser": "ينبوع", "Tea": "شاي", "Human": "إنسان", "Adam": "آدم", "Eve": "حواء", "Glass": "زجاج", "Light Bulb": "مصباح", "Window": "نافذة", "Aquarium": "حوض أسماك", "Hourglass": "ساعة رملية", "Fish": "سمك", "Bottle": "زجاجة", "Hole": "حفرة", "Door": "باب", "Cook": "طبخ", "Weapon": "سلاح", "Cave": "كهف", "Campfire": "نار مخيم", "Train": "قطار", "Cotton": "قطن", "Cloth": "قماش", "Clothes": "ملابس", "Statue": "تمثال", "Color": "لون", "Painting": "لوحة", "Book": "كتاب", "Library": "مكتبة", "Comet": "مذنب", "Author": "مؤلف", "Idea": "فكرة", "Copyright": "حقوق النشر"
   }
 };
+
+// Função para garantir que o idioma sempre exista no objeto translations
+function getSafeLanguage() {
+    const lang = localStorage.getItem('allcraft_lang');
+    if (lang && translations[lang]) {
+        return lang;
+    }
+    return "pt-BR";
+}
+
+currentLanguage = getSafeLanguage();
+
 
 // ==========================================
 // 3. ELEMENTOS E EMOJIS
@@ -119,7 +121,7 @@ const elements = {
 };
 
 // ==========================================
-// 4. RECEITAS
+// 4. RECEITAS (Tabela de Combinações)
 // ==========================================
 const recipes = {
     // Natureza e Elementos Base
@@ -263,7 +265,7 @@ const recipes = {
     "Infinite+Infinitecraft": "All", 
     "All+Craft": "Allcraft",
 
-    // SUA SAGA E REI LEÃO (Implementadas)
+    // SUA SAGA E REI LEÃO
     "King+Lion": "The Lion King",
     "The Lion King+Stone": "The Lion King II: Simba's Pride",
     "The Lion King+Star": "The Lion King 1½",
@@ -279,27 +281,22 @@ const elementsDiv = document.getElementById("elements");
 const discoveredDiv = document.getElementById("discovered");
 
 function getTranslation(key) {
-    if (!translations[currentLanguage]) return key; 
-    return translations[currentLanguage][key] || key;
+    const langData = translations[currentLanguage] || translations["pt-BR"];
+    return langData[key] || key;
 }
 
 function translateInterface() {
-    // 1. Atualiza o título da aba do navegador
     document.title = getTranslation("title");
 
-    // 2. Atualiza o H1 (Título principal) mantendo o ícone
-    const h1 = document.querySelector("h1") || document.getElementById("title");
+    const h1 = document.querySelector("h1") || document.getElementById("ui-title");
     if (h1) h1.innerHTML = "⚛️ " + getTranslation("title");
     
-    // 3. Atualiza a Tagline (Subtítulo)
-    const p = document.querySelector("p") || document.getElementById("tagline");
+    const p = document.querySelector("p") || document.getElementById("ui-tagline");
     if (p) p.textContent = getTranslation("tagline");
     
-    // 4. Atualiza o cabeçalho das Descobertas
-    const h2 = document.querySelector("h2") || document.getElementById("discovered_header");
+    const h2 = document.querySelector("h2") || document.getElementById("ui-discovered-header");
     if (h2) h2.textContent = getTranslation("discovered_header");
     
-    // 5. Atualiza o botão de Reset
     const btn = document.getElementById("resetBtn");
     if (btn) btn.textContent = getTranslation("reset_button");
 }
@@ -308,28 +305,32 @@ function renderElements() {
     elementsDiv.innerHTML = "";
     basics.forEach(el => {
         let div = document.createElement("div");
-        div.className = "element";
-        div.textContent = (elements[el] || "") + " " + getTranslation(el);
-        div.onclick = () => selectElement(el);
+        div.className = "element-card";
+        // Adiciona emoji se existir no dicionário 'elements' (da Parte 1)
+        const emoji = typeof elements !== 'undefined' ? (elements[el] || "") : "";
+        div.textContent = emoji + " " + getTranslation(el);
+        div.onclick = () => selectElement(el, div);
         elementsDiv.appendChild(div);
     });
 
     discoveredDiv.innerHTML = "";
-    discovered.forEach(el => {
+    [...discovered].sort().forEach(el => {
         let div = document.createElement("div");
-        div.className = "element";
-        div.textContent = (elements[el] || "") + " " + getTranslation(el);
-        div.onclick = () => selectElement(el);
+        div.className = "element-card";
+        const emoji = typeof elements !== 'undefined' ? (elements[el] || "") : "";
+        div.textContent = emoji + " " + getTranslation(el);
+        div.onclick = () => selectElement(el, div);
         discoveredDiv.appendChild(div);
     });
 }
 
-function selectElement(el) {
+function selectElement(name, element) {
     if (!firstPick) {
-        firstPick = el;
-        // Opcional: Adicionar classe visual de "selecionado"
+        firstPick = { name, element };
+        element.classList.add('selected');
     } else {
-        combine(firstPick, el);
+        combine(firstPick.name, name);
+        firstPick.element.classList.remove('selected');
         firstPick = null;
     }
 }
@@ -344,7 +345,9 @@ function combine(a, b) {
             discovered.add(result);
             saveGame();
             renderElements();
-            alert(getTranslation("alert_new") + " " + getTranslation(result));
+            alert("✨ " + getTranslation("alert_new") + ": " + getTranslation(result));
+        } else {
+            alert("✨ " + getTranslation(result));
         }
     } else {
         alert(getTranslation("alert_not_found"));
@@ -360,6 +363,9 @@ function loadGame() {
     if (saved) {
         discovered = new Set(JSON.parse(saved));
     }
+    
+    let savedLang = localStorage.getItem("allcraft_lang");
+    if (savedLang) currentLanguage = savedLang;
 }
 
 function resetGame() {
@@ -371,7 +377,7 @@ function resetGame() {
 }
 
 // ==========================================
-// 6. INICIALIZAÇÃO
+// 6. INICIALIZAÇÃO E IDIOMA
 // ==========================================
 document.addEventListener("DOMContentLoaded", () => {
     loadGame();
@@ -382,26 +388,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (resetBtn) resetBtn.addEventListener("click", resetGame);
 });
 
-// Função para ser chamada via console ou botões de bandeira
 function changeLanguage(lang) {
-    currentLanguage = lang; // Deve ser igual ao nome lá do topo
-    const t = translations[lang];
-    
-    // Atualiza os textos fixos da interface
-    const elementsToTranslate = {
-        'title': t.title,
-        'tagline': t.tagline,
-        'discovered_header': t.discovered_header,
-        'resetBtn': t.reset_button
-    };
-
-    for (let id in elementsToTranslate) {
-        const el = document.getElementById(id);
-        if (el) el.innerText = elementsToTranslate[id];
-    }
-    
+    currentLanguage = lang;
     localStorage.setItem('allcraft_lang', lang);
-    renderElements(); 
-    // Atualiza a interface do jogo (elementos e lista de descobertas)
-    updateUI(); 
+    translateInterface();
+    renderElements();
 }

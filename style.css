@@ -1,15 +1,22 @@
-/* --- ESTILO GERAL --- */
+/* --- ESTILO GERAL (Híbrido Moderno) --- */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: center;
-    background: linear-gradient(to bottom, #e3f2fd, #ffffff);
+    background: linear-gradient(to bottom, #f0f8ff, #ffffff);
     margin: 0;
     padding: 20px;
     min-height: 100vh;
+    color: #333;
 }
 
 h1 {
-    color: #333;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+#tagline {
+    color: #666;
+    margin-bottom: 30px;
 }
 
 /* --- BOTÕES DE IDIOMA --- */
@@ -23,75 +30,110 @@ h1 {
 }
 
 #language-buttons button {
-    padding: 8px 12px;
+    padding: 8px 14px;
     font-size: 13px;
     cursor: pointer;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    box-shadow: 1px 1px 3px rgba(0,0,0,0.05);
-    transition: all 0.3s;
-    line-height: 1.2;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
 }
 
 #language-buttons button:hover {
-    background-color: #e0e0e0;
-    border-color: #999;
+    background-color: #f0f0f0;
     transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-/* Estilo para o botão de idioma selecionado (Ativo) */
 #language-buttons button.active {
-    background-color: #2196F3; 
-    color: white;              
-    border-color: #0d47a1;     
-    box-shadow: inset 2px 2px 4px rgba(0,0,0,0.2);
-    transform: scale(1.05);    
+    background-color: #3498db;
+    color: white;
+    border-color: #2980b9;
+    transform: scale(1.05);
 }
 
-/* --- ELEMENTOS DO JOGO --- */
+/* --- ELEMENTOS DO JOGO (Visual de Cards) --- */
 #elements, #discovered {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin: 20px auto;
-    gap: 10px;
+    gap: 12px;
     max-width: 800px;
+    padding: 15px;
 }
 
+/* A classe 'element' agora tem o visual moderno */
 .element {
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    padding: 10px 15px;
-    cursor: pointer;
     background: white;
-    box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
-    transition: transform 0.2s, background-color 0.2s;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 12px 18px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
     user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .element:hover {
-    transform: scale(1.1);
-    background-color: #f0f8ff;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    border-color: #3498db;
 }
 
-.element:active {
-    transform: scale(0.95);
+/* Efeito quando você clica para selecionar o primeiro item */
+.element.selected {
+    background: #3498db !important;
+    color: white !important;
+    border-color: #2980b9;
+    animation: pulse 1s infinite;
 }
 
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
+/* --- BOTÃO RESET --- */
 #resetBtn {
     margin-top: 40px;
-    padding: 10px 20px;
+    padding: 15px 30px;
     font-size: 16px;
+    font-weight: bold;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     cursor: pointer;
-    background: #ff4d4d;
+    background: #ff4757;
     color: white;
-    box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
-    transition: background 0.2s;
+    box-shadow: 0 4px 0 #d63031;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
 }
 
 #resetBtn:hover {
-    background: #e60000;
+    background: #ff6b81;
+    transform: translateY(-2px);
+}
+
+#resetBtn:active {
+    transform: translateY(3px);
+    box-shadow: none;
+}
+
+/* Títulos de seção */
+h2 {
+    margin-top: 40px;
+    font-size: 1.5rem;
+    color: #444;
+    border-bottom: 2px solid #3498db;
+    display: inline-block;
+    padding-bottom: 5px;
 }
