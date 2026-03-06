@@ -1,23 +1,65 @@
-const ELEMENTS_DB = {
-    "Água": "💧", "Fogo": "🔥", "Terra": "🌱", "Ar": "💨",
-    "Lama": "💩", "Lava": "🌋", "Energia": "⚡", "Vapor": "☁️",
-    "Pedra": "🪨", "Metal": "⛓️", "Montanha": "🏔️", "Chuva": "🌧️",
-    "Planta": "🌿", "Vento": "🌬️", "Areia": "🏖️", "Vidro": "🍷"
-};
+// 1. LISTA DE ELEMENTOS (Basta escrever: Nome Emoji)
+const rawElements = `
+    Água 💧
+    Fogo 🔥
+    Terra 🌱
+    Ar 💨
+    Lama 💩
+    Lava 🌋
+    Vapor ☁️
+    Pedra 🪨
+    Energia ⚡
+    Chuva 🌧️
+    Planta 🌿
+    Metal ⛓️
+    Areia 🏖️
+    Vidro 🍷
+    Nuvem ☁️
+    Vento 🌬️
+    Pântano 🐊
+    Vida 🧬
+    Humano 👤
+    Bactéria 🦠
+    Eletricidade 🔌
+    Ferramenta 🔨
+    Floresta 🌳
+`;
 
-const RECIPES = {
-    "Água + Terra": "Lama",
-    "Fogo + Terra": "Lava",
-    "Fogo + Ar": "Energia",
-    "Água + Fogo": "Vapor",
-    "Lava + Água": "Pedra",
-    "Terra + Terra": "Montanha",
-    "Pedra + Fogo": "Metal",
-    "Ar + Água": "Chuva",
-    "Fogo + Areia": "Vidro",
-    "Pedra + Ar": "Areia"
-};
+// 2. LISTA DE RECEITAS (Basta escrever: Item1 + Item2 = Resultado)
+const rawRecipes = `
+    Água + Terra = Lama
+    Fogo + Terra = Lava
+    Fogo + Ar = Energia
+    Ar + Água = Chuva
+    Lava + Água = Pedra
+    Ar + Nuvem = Vento
+    Pedra + Ar = Areia
+    Fogo + Areia = Vidro
+    Lama + Água = Pântano
+    Terra + Chuva = Planta
+    Pântano + Energia = Vida
+    Vida + Água = Bactéria
+    Vida + Terra = Humano
+    Humano + Energia = Eletricidade
+    Humano + Metal = Ferramenta
+    Humano + Pedra = Ferramenta
+    Planta + Terra = Floresta
+`;
 
+// --- PROCESSAMENTO DOS DADOS (Não precisa mexer aqui) ---
+const ELEMENTS_DB = {};
+rawElements.trim().split('\n').forEach(line => {
+    const [name, emoji] = line.trim().split(/\s+/);
+    if (name && emoji) ELEMENTS_DB[name] = emoji;
+});
+
+const RECIPES = {};
+rawRecipes.trim().split('\n').forEach(line => {
+    const [ingredients, result] = line.split('=').map(s => s.trim());
+    if (ingredients && result) RECIPES[ingredients] = result;
+});
+
+// --- LÓGICA DO JOGO ---
 let inventory = ["Água", "Fogo", "Terra", "Ar"];
 
 const canvas = document.getElementById('canvas');
@@ -35,7 +77,9 @@ function init() {
 function createVisualElement(name, isCanvas = false) {
     const div = document.createElement('div');
     div.className = isCanvas ? 'element canvas-item' : 'element';
-    div.innerHTML = `<span>${ELEMENTS_DB[name] || "✨"}</span> ${name}`;
+    // Pega o emoji do banco processado ou usa estrela se não achar
+    const emoji = ELEMENTS_DB[name] || "✨";
+    div.innerHTML = `<span>${emoji}</span> ${name}`;
     div.draggable = true;
 
     if (isCanvas) {
@@ -98,10 +142,15 @@ function checkCollision(movedEl) {
                             movedRect.top > targetRect.bottom);
 
         if (collision) {
-            const name1 = movedEl.lastChild.textContent.trim();
-            const name2 = target.lastChild.textContent.trim();
+            // Extrai o nome do elemento limpando o emoji e espaços
+            const name1 = movedEl.innerText.replace(ELEMENTS_DB[movedEl.innerText.split(' ').slice(1).join(' ')] || "", "").trim().split(' ').pop();
+            // Forma mais segura de pegar o nome:
+            const getName = (el) => el.innerText.split(' ').slice(1).join(' ').trim();
             
-            const result = RECIPES[`${name1} + ${name2}`] || RECIPES[`${name2} + ${name1}`];
+            const n1 = getName(movedEl);
+            const n2 = getName(target);
+            
+            const result = RECIPES[`${n1} + ${n2}`] || RECIPES[`${n2} + ${n1}`];
 
             if (result) {
                 if (combineSound) {
