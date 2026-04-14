@@ -8,23 +8,32 @@
 </head>
 <body>
 
-    <div class="game-container">
-        <main id="canvas" class="canvas">
-            <div class="instructions">Arraste os elementos e solte um sobre o outro para combinar</div>
-        </main>
-
-        <aside class="sidebar">
-            <div class="header">
-                <h1>AllCraft</h1>
-                <button id="clear-btn">Limpar Mesa</button>
-            </div>
-            <div id="inventory" class="inventory">
-                </div>
-        </aside>
-    </div>
-
-    <audio id="combine-sound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
+<div class="game-container">
     
-    <script src="script.js"></script>
+    <main id="canvas" class="canvas">
+        <div class="instructions">
+            Arraste os elementos e solte um sobre o outro para combinar
+        </div>
+    </main>
+
+    <aside class="sidebar">
+        <div class="header">
+            <h1>AllCraft</h1>
+            <button id="clear-btn">Limpar Mesa</button>
+            <button id="reset-btn">Resetar Progresso</button>
+        </div>
+        <div id="inventory" class="inventory"></div>
+    </aside>
+
+</div>
+
+<!-- 🔊 ÁUDIO -->
+<audio id="combine-sound" preload="auto">
+    <source src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" type="audio/mpeg">
+    <source src="https://www.soundjay.com/button/sounds/button-16.mp3" type="audio/mpeg">
+</audio>
+
+<script src="script.js"></script>
+
 </body>
 </html>

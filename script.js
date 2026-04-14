@@ -1,181 +1,355 @@
-// 1. LISTA DE ELEMENTOS (Basta escrever: Nome Emoji)
+// ========================
+// BANCO DE DADOS
+// ========================
 const rawElements = `
-    Água 💧
-    Fogo 🔥
-    Terra 🌱
-    Ar 💨
-    Lama 💩
-    Lava 🌋
-    Vapor ☁️
-    Pedra 🪨
-    Energia ⚡
-    Chuva 🌧️
-    Planta 🌿
-    Metal ⛓️
-    Areia 🏖️
-    Vidro 🍷
-    Nuvem ☁️
-    Vento 🌬️
-    Pântano 🐊
-    Vida 🧬
-    Humano 👤
-    Bactéria 🦠
-    Eletricidade 🔌
-    Ferramenta 🔨
-    Floresta 🌳
+Água 💧
+Fogo 🔥
+Terra 🌱
+Ar 💨
+Lama 💩
+Lava 🌋
+Vapor ☁️
+Pedra 🪨
+Energia ⚡
+Chuva 🌧️
+Planta 🌿
+Metal ⛓️
+Areia 🏖️
+Vidro 🍷
+Nuvem ☁️
+Vento 🌬️
+Pântano 🐊
+Vida 🧬
+Humano 👤
+Bactéria 🦠
+Eletricidade 🔌
+Ferramenta 🔨
+Floresta 🌳
 `;
 
-// 2. LISTA DE RECEITAS (Basta escrever: Item1 + Item2 = Resultado)
 const rawRecipes = `
-    Água + Terra = Lama
-    Fogo + Terra = Lava
-    Fogo + Ar = Energia
-    Ar + Água = Chuva
-    Lava + Água = Pedra
-    Ar + Nuvem = Vento
-    Pedra + Ar = Areia
-    Fogo + Areia = Vidro
-    Lama + Água = Pântano
-    Terra + Chuva = Planta
-    Pântano + Energia = Vida
-    Vida + Água = Bactéria
-    Vida + Terra = Humano
-    Humano + Energia = Eletricidade
-    Humano + Metal = Ferramenta
-    Humano + Pedra = Ferramenta
-    Planta + Terra = Floresta
+Água + Terra = Lama
+Fogo + Terra = Lava
+Fogo + Ar = Energia
+Ar + Água = Chuva
+Lava + Água = Pedra
+Ar + Nuvem = Vento
+Pedra + Ar = Areia
+Fogo + Areia = Vidro
+Lama + Água = Pântano
+Terra + Chuva = Planta
+Pântano + Energia = Vida
+Vida + Água = Bactéria
+Vida + Terra = Humano
+Humano + Energia = Eletricidade
+Humano + Metal = Ferramenta
+Humano + Pedra = Ferramenta
+Planta + Terra = Floresta
 `;
 
-// --- PROCESSAMENTO DOS DADOS (Não precisa mexer aqui) ---
+// ========================
+// PROCESSAMENTO
+// ========================
 const ELEMENTS_DB = {};
 rawElements.trim().split('\n').forEach(line => {
     const [name, emoji] = line.trim().split(/\s+/);
-    if (name && emoji) ELEMENTS_DB[name] = emoji;
+    ELEMENTS_DB[name] = emoji;
 });
 
 const RECIPES = {};
 rawRecipes.trim().split('\n').forEach(line => {
-    const [ingredients, result] = line.split('=').map(s => s.trim());
-    if (ingredients && result) RECIPES[ingredients] = result;
+    const [ing, res] = line.split('=').map(s => s.trim());
+    RECIPES[ing] = res;
 });
 
-// --- LÓGICA DO JOGO ---
-let inventory = ["Água", "Fogo", "Terra", "Ar"];
+// ========================
+// ESTADO + SAVE
+// ========================
+const baseElements = ["Água", "Fogo", "Terra", "Ar"];
+let inventory = JSON.parse(localStorage.getItem("inventory")) || [...baseElements];
 
+function save() {
+    localStorage.setItem("inventory", JSON.stringify(inventory));
+}
+
+// ========================
 const canvas = document.getElementById('canvas');
 const inventoryContainer = document.getElementById('inventory');
 const clearBtn = document.getElementById('clear-btn');
+const resetBtn = document.getElementById('reset-btn');
 const combineSound = document.getElementById('combine-sound');
 
-function init() {
-    renderInventory();
-    canvas.ondragover = (e) => e.preventDefault();
-    canvas.ondrop = handleDrop;
-    clearBtn.onclick = () => canvas.querySelectorAll('.canvas-item').forEach(el => el.remove());
+// ========================
+// 🔊 SOM SEGURO
+// ========================
+function playSound() {
+    if (!combineSound) return;
+
+    try {
+        combineSound.currentTime = 0;
+        combineSound.play().catch(() => {});
+    } catch {}
 }
 
-function createVisualElement(name, isCanvas = false) {
+// desbloqueio de áudio (mobile)
+document.addEventListener("click", () => {
+    if (!combineSound) return;
+
+    combineSound.play().then(() => {
+        combineSound.pause();
+        combineSound.currentTime = 0;
+    }).catch(() => {});
+}, { once: true });
+
+// ========================
+// CRIAR ELEMENTO
+// ========================
+function createElement(name, isCanvas = false) {
     const div = document.createElement('div');
     div.className = isCanvas ? 'element canvas-item' : 'element';
-    // Pega o emoji do banco processado ou usa estrela se não achar
+    div.dataset.name = name;
+
     const emoji = ELEMENTS_DB[name] || "✨";
     div.innerHTML = `<span>${emoji}</span> ${name}`;
+
+    // =========================
+    // DRAG PC
+    // =========================
     div.draggable = true;
+    div.ondragstart = e => {
+        e.dataTransfer.setData("name", name);
+        if (isCanvas) e.dataTransfer.setData("id", div.id);
+    };
+
+    // =========================
+    // TOUCH MOBILE (CORRIGIDO)
+    // =========================
+    let clone = null;
+
+    div.ontouchstart = e => {
+        const touch = e.touches[0];
+
+        if (!isCanvas) {
+            clone = createElement(name, true);
+            canvas.appendChild(clone);
+        } else {
+            clone = div;
+        }
+
+        clone.style.position = "absolute";
+        clone.style.left = (touch.clientX - 50) + "px";
+        clone.style.top = (touch.clientY - 20) + "px";
+    };
+
+    div.ontouchmove = e => {
+        if (!clone) return;
+
+        const touch = e.touches[0];
+        clone.style.left = (touch.clientX - 50) + "px";
+        clone.style.top = (touch.clientY - 20) + "px";
+    };
+
+    div.ontouchend = () => {
+        if (clone) {
+            checkCollision(clone);
+            clone = null;
+        }
+    };
 
     if (isCanvas) {
-        div.id = "el-" + Math.random().toString(36).substr(2, 9);
+        div.id = "el-" + Math.random().toString(36).slice(2);
     }
-
-    div.ondragstart = (e) => {
-        e.dataTransfer.setData("text/name", name);
-        if (isCanvas) e.dataTransfer.setData("text/id", div.id);
-    };
 
     return div;
 }
 
-function renderInventory(newElementName = null) {
-    inventoryContainer.innerHTML = '';
+// ========================
+// INVENTÁRIO
+// ========================
+function renderInventory(newItem = null) {
+    inventoryContainer.innerHTML = "";
+
     inventory.forEach(name => {
-        const el = createVisualElement(name);
-        if (name === newElementName) {
-            el.classList.add('new-discovery');
+        const el = createElement(name);
+
+        if (name === newItem) {
+            el.classList.add("new-discovery");
         }
+
         inventoryContainer.appendChild(el);
     });
 }
 
+// ========================
+// DROP PC
+// ========================
 function handleDrop(e) {
     e.preventDefault();
-    const name = e.dataTransfer.getData("text/name");
-    const id = e.dataTransfer.getData("text/id");
-    
+
+    const name = e.dataTransfer.getData("name");
+    const id = e.dataTransfer.getData("id");
+
     const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
 
     let el;
+
     if (id && document.getElementById(id)) {
         el = document.getElementById(id);
     } else {
-        el = createVisualElement(name, true);
+        el = createElement(name, true);
         canvas.appendChild(el);
     }
 
-    el.style.left = `${x - 50}px`;
-    el.style.top = `${y - 20}px`;
+    el.style.left = (e.clientX - rect.left - 50) + "px";
+    el.style.top = (e.clientY - rect.top - 20) + "px";
 
     checkCollision(el);
 }
 
+// ========================
+// PARTÍCULAS
+// ========================
+function spawnParticles(x, y) {
+    for (let i = 0; i < 12; i++) {
+        const p = document.createElement("div");
+
+        p.style.position = "absolute";
+        p.style.left = x + "px";
+        p.style.top = y + "px";
+        p.style.width = "6px";
+        p.style.height = "6px";
+        p.style.background = "white";
+        p.style.borderRadius = "50%";
+        p.style.pointerEvents = "none";
+
+        canvas.appendChild(p);
+
+        const angle = Math.random() * 2 * Math.PI;
+        const speed = Math.random() * 60;
+
+        p.animate([
+            { transform: "translate(0,0)", opacity: 1 },
+            { transform: `translate(${Math.cos(angle)*speed}px, ${Math.sin(angle)*speed}px)`, opacity: 0 }
+        ], { duration: 500 });
+
+        setTimeout(() => p.remove(), 500);
+    }
+}
+
+// ========================
+// IA INFINITA
+// ========================
+function generateElement(n1, n2) {
+    return (
+        RECIPES[`${n1} + ${n2}`] ||
+        RECIPES[`${n2} + ${n1}`] ||
+        `${n1}-${n2}`
+    );
+}
+
+// ========================
+// COLISÃO (ANTI BUG)
+// ========================
+let isCombining = false;
+
 function checkCollision(movedEl) {
-    const items = canvas.querySelectorAll('.canvas-item');
-    const movedRect = movedEl.getBoundingClientRect();
+    if (isCombining) return;
+
+    const items = document.querySelectorAll('.canvas-item');
+    const rect1 = movedEl.getBoundingClientRect();
 
     items.forEach(target => {
-        if (target === movedEl) return;
+        if (target === movedEl || isCombining) return;
 
-        const targetRect = target.getBoundingClientRect();
-        const collision = !(movedRect.right < targetRect.left || 
-                            movedRect.left > targetRect.right || 
-                            movedRect.bottom < targetRect.top || 
-                            movedRect.top > targetRect.bottom);
+        const rect2 = target.getBoundingClientRect();
 
-        if (collision) {
-            // Extrai o nome do elemento limpando o emoji e espaços
-            const name1 = movedEl.innerText.replace(ELEMENTS_DB[movedEl.innerText.split(' ').slice(1).join(' ')] || "", "").trim().split(' ').pop();
-            // Forma mais segura de pegar o nome:
-            const getName = (el) => el.innerText.split(' ').slice(1).join(' ').trim();
-            
-            const n1 = getName(movedEl);
-            const n2 = getName(target);
-            
-            const result = RECIPES[`${n1} + ${n2}`] || RECIPES[`${n2} + ${n1}`];
+        const collision = !(
+            rect1.right < rect2.left ||
+            rect1.left > rect2.right ||
+            rect1.bottom < rect2.top ||
+            rect1.top > rect2.bottom
+        );
 
-            if (result) {
-                if (combineSound) {
-                    combineSound.currentTime = 0;
-                    combineSound.play();
-                }
-                
-                const posX = target.style.left;
-                const posY = target.style.top;
+        if (!collision) return;
 
-                movedEl.remove();
-                target.remove();
+        isCombining = true;
 
-                const newEl = createVisualElement(result, true);
-                newEl.style.left = posX;
-                newEl.style.top = posY;
-                canvas.appendChild(newEl);
+        const n1 = movedEl.dataset.name;
+        const n2 = target.dataset.name;
 
-                if (!inventory.includes(result)) {
-                    inventory.push(result);
-                    renderInventory(result);
-                }
-            }
+        const result = generateElement(n1, n2);
+
+        playSound();
+
+        const x = target.style.left;
+        const y = target.style.top;
+
+        spawnParticles(parseInt(x), parseInt(y));
+
+        movedEl.remove();
+        target.remove();
+
+        const newEl = createElement(result, true);
+        newEl.style.left = x;
+        newEl.style.top = y;
+
+        canvas.appendChild(newEl);
+
+        if (!inventory.includes(result)) {
+            inventory.push(result);
+            renderInventory(result);
+            save();
         }
+
+        setTimeout(() => isCombining = false, 50);
     });
+}
+
+// ========================
+// INIT
+// ========================
+function init() {
+    renderInventory();
+
+    canvas.ondragover = e => e.preventDefault();
+    canvas.ondrop = handleDrop;
+
+    clearBtn.onclick = () => {
+        document.querySelectorAll('.canvas-item').forEach(e => e.remove());
+    };
+}
+
+function init() {
+    renderInventory();
+
+    canvas.ondragover = e => e.preventDefault();
+    canvas.ondrop = handleDrop;
+
+    clearBtn.onclick = () => {
+        document.querySelectorAll('.canvas-item').forEach(e => e.remove());
+    };
+
+    // ✅ RESET CORRETO
+    resetBtn.onclick = () => {
+        const confirmReset = confirm("⚠️ Tem certeza que quer apagar TODO o progresso?");
+
+        if (!confirmReset) return;
+
+        // reset inventário
+        inventory = [...baseElements];
+
+        // limpar save
+        localStorage.removeItem("inventory");
+
+        // limpar tela
+        document.querySelectorAll('.canvas-item').forEach(e => e.remove());
+
+        // atualizar interface
+        renderInventory();
+
+        // feedback opcional
+        console.log("Progresso resetado!");
+    };
 }
 
 init();
