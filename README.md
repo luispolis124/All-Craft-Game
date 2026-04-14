@@ -1,40 +1,129 @@
 # ⚛️ All-Craft-Game
 
-Um jogo expansivo de combinação de elementos, inspirado no clássico Alchemy e Infinite Craft. Comece com a simplicidade da natureza e evolua até a complexidade da tecnologia, da fé e de sagas épicas!
+Um jogo expansivo de combinação de elementos, inspirado em Alchemy e Infinite Craft. Comece com os elementos básicos da natureza e descubra combinações infinitas — da ciência até ideias totalmente inesperadas!
+
+---
 
 ## ✨ Recursos Principais
 
-* **Vastidão de Elementos:** Agora com centenas de combinações, incluindo:
-* **Básicos:** Natureza, clima e física.
-* **Civilização:** Construção, tecnologia e profissões.
-* **Épico & Bíblico:** De Adão e Eva até a Arca de Noé e as linhagens de Abraão.
-* **Saga "O Leão Dentro de Mim":** Explore o universo exclusivo da trilogia Akin e clássicos como Rei Leão.
+### 🧪 Sistema de Combinação Infinita
+- Combine elementos livremente
+- Receitas fixas + geração procedural (infinita)
+- Sempre existe algo novo para descobrir!
 
+---
 
-* **11 Idiomas Suportados!** Sistema de tradução completo para:
-* Português, Inglês, Espanhol, Francês, Alemão.
-* Japonês, Coreano, Chinês.
-* Russo, Ucraniano e Hindi.
+### 🌟 Efeitos Visuais
+- Partículas ao combinar elementos ✨
+- Animações suaves e feedback visual
+- Destaque para novos elementos descobertos
 
+---
 
-* **Progressão Persistente:** Suas descobertas são salvas automaticamente via `localStorage`. Nunca perca seu progresso!
-* **Interface Adaptável:** Design limpo e responsivo que exibe nomes e emojis de forma clara em qualquer dispositivo.
+### 📱 Suporte Completo Mobile
+- Sistema de toque (drag com dedo)
+- Funciona em celular e tablet
+- Experiência fluida sem precisar de mouse
+
+---
+
+### 💾 Progresso Automático
+- Salvamento automático via `localStorage`
+- Continue de onde parou
+- Nenhuma perda de progresso
+
+---
+
+### 💀 Sistema de Reset
+- Botão **Limpar Mesa** → limpa só a tela
+- Botão **Resetar Progresso** → apaga tudo
+- Confirmação de segurança antes de resetar
+
+---
+
+### 🔊 Sistema de Áudio
+- Som ao combinar elementos
+- Compatível com mobile
+- Sistema com fallback (evita erros de áudio)
+
+---
+
+### 🎨 Interface Moderna
+- Design escuro e minimalista
+- Elementos com emojis visuais
+- Responsivo e adaptável
+
+---
+
+## 🚀 Como Jogar
+
+1. Arraste um elemento para o espaço de jogo
+2. Arraste outro elemento e solte por cima
+3. Se a combinação existir (ou for gerada), um novo elemento aparece!
+4. Ele será adicionado automaticamente ao seu inventário
+5. Continue explorando e criando combinações infinitas!
+
+---
+
+## 🎯 Objetivo
+
+Não há limite.
+
+Descubra o máximo de elementos possível e explore combinações criativas.  
+Cada jogador pode criar resultados únicos!
+
+---
 
 ## 🔗 Link do Jogo
 
-**Jogue Agora e Descubra Tudo:** [https://luispolis124.github.io/All-Craft-Game/](https://luispolis124.github.io/All-Craft-Game/)
+👉 **Jogue Agora:**  
+https://luispolis124.github.io/All-Craft-Game/
 
-## 🛠️ Tecnologias e Estrutura
+---
 
-Este projeto utiliza uma arquitetura de dados organizada para facilitar a expansão:
+## 🛠️ Tecnologias Utilizadas
 
-* **JavaScript (ES6+):** Lógica central baseada em mapeamento de objetos para combinações instantâneas.
-* **Internationalization (i18n):** Objeto de traduções dinâmico que sincroniza os nomes dos elementos em tempo real.
-* **HTML5 & CSS3:** Interface minimalista focada na experiência do usuário (UX).
+- **JavaScript (ES6+)** → lógica do jogo
+- **HTML5** → estrutura
+- **CSS3** → estilo e animações
+- **localStorage** → salvamento automático
 
-## 📖 Como Jogar
+---
 
-1. Selecione dois elementos da sua lista de descobertas.
-2. Combine-os para tentar criar algo novo.
-3. Se a combinação existir, um novo ícone aparecerá na sua biblioteca!
-4. Tente chegar ao elemento **"Allcraft"** para provar que você é um mestre da criação.
+## 🧠 Diferencial do Projeto
+
+Diferente de jogos tradicionais:
+
+- ✔ Sistema **infinito real**
+- ✔ Funciona offline
+- ✔ Leve e rápido
+- ✔ Fácil de expandir (novas receitas)
+
+---
+
+## 📌 Futuras Melhorias (Roadmap)
+
+- 🔍 Busca de elementos
+- ⭐ Sistema de favoritos
+- 🧠 Nomes inteligentes (IA)
+- 🏆 Sistema de conquistas
+- ☁️ Save em nuvem
+- 🎵 Música de fundo
+
+---
+
+## 👨‍💻 Autor
+
+Criado por **Luis Felipe Barbosa Da Silva**
+
+---
+
+## ⚡ Inspiração
+
+- Infinite Craft
+- Little Alchemy
+- Jogos sandbox de criação
+
+---
+
+💡 *Dica:* Combine coisas aleatórias… às vezes surgem resultados inesperados 😄
